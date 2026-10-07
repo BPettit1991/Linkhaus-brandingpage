@@ -1,0 +1,20 @@
+{
+  "name": "brand-subdomain",
+  "private": true,
+  "description": "Template: a brand asset kit plus a private, sign-in protected brand portal on a subdomain (Cloudflare Workers + R2 + Access).",
+  "type": "module",
+  "scripts": {
+    "setup": "npm --prefix portal ci && npm --prefix generators ci",
+    "new-brand": "node scripts/new-brand.mjs",
+    "collect": "node scripts/collect.mjs",
+    "generate": "node generators/index.mjs",
+    "trace": "node generators/trace.mjs",
+    "check": "node scripts/check.mjs",
+    "token-url": "node scripts/token-url.mjs",
+    "build": "npm --prefix portal run build",
+    "test": "npm --prefix portal test && node --test scripts/test/*.test.mjs generators/test/*.test.mjs",
+    "verify": "node scripts/verify-live.mjs",
+    "preview": "node scripts/preview.mjs",
+    "demo-kit": "node scripts/make-demo-kit.mjs"
+  }
+}

@@ -1,0 +1,46 @@
+/* Linkhaus — color tokens
+   Usage: @import this file, then reference var(--lh-*) tokens.
+   Do not hardcode hex values in product/marketing code — use these tokens
+   so a future palette adjustment only touches this file. */
+
+:root {
+  /* Neutrals — crisp near-black on true white, cool grey scale. Replaced
+     the original warm charcoal/cream neutrals per direct feedback that
+     they read as murky/muddy on screen rather than clean. */
+  --lh-ink-900: #16171A;   /* primary text, primary dark surface */
+  --lh-ink-700: #212226;   /* secondary dark surface (cards on dark) */
+  --lh-grey-500: #5B5D63;  /* secondary text, muted icons */
+  --lh-grey-300: #9A9CA3;  /* borders, disabled states */
+  --lh-grey-100: #E2E3E0;  /* dividers, subtle fills */
+  --lh-paper-50: #FFFFFF;  /* primary light surface / app background */
+  --lh-white: #FFFFFF;     /* true white, dark-mode text */
+
+  /* Accent — Haus Green: an earthy moss green with real saturation, not a
+     washed-out pastel or a clean synthetic "SaaS" green. Never changes hue
+     between light/dark mode. */
+  --lh-green-800: #2D4422; /* pressed / active state */
+  --lh-green-600: #446732; /* primary accent — buttons, links, brand mark */
+  --lh-green-400: #93BF7D; /* accent on dark surfaces, hover state */
+  --lh-green-100: #E3EDDE; /* tint — badges, subtle backgrounds */
+
+  /* Semantic tokens — light mode (default) */
+  --lh-bg: var(--lh-paper-50);
+  --lh-surface: var(--lh-white);
+  --lh-text-primary: var(--lh-ink-900);
+  --lh-text-secondary: var(--lh-grey-500);
+  --lh-border: var(--lh-grey-100);
+  --lh-accent: var(--lh-green-600);
+  --lh-accent-hover: var(--lh-green-800);
+  --lh-accent-tint: var(--lh-green-100);
+}
+
+[data-theme="dark"] {
+  --lh-bg: var(--lh-ink-900);
+  --lh-surface: var(--lh-ink-700);
+  --lh-text-primary: var(--lh-white);
+  --lh-text-secondary: var(--lh-grey-300);
+  --lh-border: var(--lh-ink-700);
+  --lh-accent: var(--lh-green-400);
+  --lh-accent-hover: var(--lh-green-600);
+  --lh-accent-tint: var(--lh-green-800);
+}

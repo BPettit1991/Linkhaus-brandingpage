@@ -1,0 +1,29 @@
+/* Linkhaus — typography tokens
+   Fonts are open-source (SIL OFL / Apache), load from Google Fonts or
+   self-host. No licensing cost, no vendor lock-in. */
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Font families */
+  --lh-font-display: 'Baloo 2', 'Arial Rounded MT Bold', sans-serif; /* headlines, wordmark, big numbers */
+  --lh-font-body: 'Inter', -apple-system, 'Segoe UI', sans-serif; /* UI copy, marketing body text */
+  --lh-font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace; /* code, data, technical specs */
+
+  /* Type scale — size / line-height */
+  --lh-display-xl: 700 4rem/1.05 var(--lh-font-display);
+  --lh-display-l:  700 3rem/1.1  var(--lh-font-display);
+  --lh-h1:         700 2.25rem/1.15 var(--lh-font-display);
+  --lh-h2:         600 1.75rem/1.25 var(--lh-font-display);
+  --lh-h3:         600 1.375rem/1.3 var(--lh-font-body);
+  --lh-body-l:      400 1.125rem/1.5 var(--lh-font-body);
+  --lh-body-m:      400 1rem/1.5     var(--lh-font-body);
+  --lh-body-s:      400 0.875rem/1.5 var(--lh-font-body);
+  --lh-caption:     500 0.75rem/1.4  var(--lh-font-body); /* pair with letter-spacing: 0.06em and uppercase */
+  --lh-mono-m:      400 0.875rem/1.6 var(--lh-font-mono);
+}
+
+/* Usage:
+   h1 { font: var(--lh-h1); color: var(--lh-text-primary); }
+   .eyebrow { font: var(--lh-caption); letter-spacing: 0.06em; text-transform: uppercase; }
+*/

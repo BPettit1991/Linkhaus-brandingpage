@@ -1,0 +1,32 @@
+/* Linkhaus — spacing, radius & elevation tokens
+   A 4px base grid. Reference var(--lh-space-*) so rhythm stays consistent
+   across product and marketing. */
+
+:root {
+  /* Spacing scale — 4px base */
+  --lh-space-1: 0.25rem;  /*  4px */
+  --lh-space-2: 0.5rem;   /*  8px */
+  --lh-space-3: 0.75rem;  /* 12px */
+  --lh-space-4: 1rem;     /* 16px */
+  --lh-space-5: 1.5rem;   /* 24px */
+  --lh-space-6: 2rem;     /* 32px */
+  --lh-space-7: 3rem;     /* 48px */
+  --lh-space-8: 4rem;     /* 64px */
+  --lh-space-9: 6rem;     /* 96px */
+
+  /* Radius — soft, never pill except on tags/toasts */
+  --lh-radius-sm: 8px;
+  --lh-radius-md: 12px;
+  --lh-radius-lg: 16px;
+  --lh-radius-xl: 22px;   /* app-icon tile corner */
+  --lh-radius-pill: 100px;
+
+  /* Elevation — warm, low-contrast shadows (never pure black) */
+  --lh-shadow-sm: 0 1px 2px rgba(57, 59, 47, .05);
+  --lh-shadow-md: 0 1px 2px rgba(57, 59, 47, .05), 0 12px 32px -12px rgba(57, 59, 47, .16);
+  --lh-shadow-lg: 0 2px 4px rgba(57, 59, 47, .06), 0 24px 48px -16px rgba(57, 59, 47, .22);
+
+  /* Layout */
+  --lh-container: 1140px;
+  --lh-gutter: clamp(20px, 5vw, 64px);
+}

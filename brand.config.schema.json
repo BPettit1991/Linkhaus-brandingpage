@@ -1,0 +1,465 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Brand portal config",
+  "description": "Everything brand-specific about a brand portal built from this template. Paths are relative to portal.kitDir.",
+  "type": "object",
+  "required": [
+    "brand"
+  ],
+  "properties": {
+    "brand": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Full business name, e.g. \"Acme Plumbing Pty Ltd\"."
+        },
+        "shortName": {
+          "type": "string",
+          "description": "Short name for titles and the Access app, e.g. \"Acme\"."
+        },
+        "filePrefix": {
+          "type": "string",
+          "description": "Prefix on kit file names, removed from titles, e.g. \"acme-\"."
+        },
+        "phone": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string",
+          "default": "en-AU",
+          "description": "BCP 47 locale for dates and the page language."
+        },
+        "specimen": {
+          "type": "object",
+          "description": "Text shown in font previews.",
+          "properties": {
+            "headline": {
+              "type": "string"
+            },
+            "line": {
+              "type": "string"
+            },
+            "about": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "business": {
+      "type": "object",
+      "description": "Content for the kit generators (npm run generate): cards, social, signage, video. Anything left out is left off the designs.",
+      "properties": {
+        "legalName": {
+          "type": "string",
+          "description": "Name on letterhead and signatures. Default: brand.name."
+        },
+        "tagline": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string",
+          "description": "As it should appear. Default: brand.phone."
+        },
+        "phoneIntl": {
+          "type": "string",
+          "description": "For tel: links, e.g. +61400000000."
+        },
+        "email": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string",
+          "description": "Without https://, e.g. acme.com.au."
+        },
+        "areas": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Service areas, e.g. [\"Sydney\", \"Newcastle\"]."
+        },
+        "credentials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "value"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "Licences, accreditations, ABN: shown on cards, posts, labels and the film."
+        },
+        "abn": {
+          "type": "string",
+          "description": "e.g. \"ABN 00 000 000 000\" (fine print)."
+        },
+        "cta": {
+          "type": "string",
+          "default": "Free quotes"
+        },
+        "reviewUrl": {
+          "type": "string",
+          "description": "Google review link. Adds a review post and story with a QR code."
+        },
+        "trust": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "label": {
+              "type": "string"
+            }
+          },
+          "description": "Credentials post headline, default [\"Licensed.\", \"Insured.\", \"Local.\"]."
+        },
+        "services": {
+          "type": "array",
+          "description": "One post and one film scene each (up to 6; 4 on the card and 15 s cut).",
+          "items": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string",
+                "description": "An icon name from generators/icons.mjs, e.g. bolt, wrench, droplet, home, leaf, sun."
+              },
+              "lines": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Headline, one short line each."
+              },
+              "blurb": {
+                "type": "string"
+              },
+              "image": {
+                "type": "string",
+                "description": "Optional photo for the post, path from the repo root (keep sources outside kit/)."
+              }
+            }
+          }
+        }
+      }
+    },
+    "logos": {
+      "type": "object",
+      "description": "Logo masters (paths inside the kit). Optional: found in logos/svg by name if left out.",
+      "properties": {
+        "icon": {
+          "type": "object",
+          "properties": {
+            "dark": {
+              "type": "string"
+            },
+            "light": {
+              "type": "string"
+            }
+          }
+        },
+        "horizontal": {
+          "type": "object",
+          "properties": {
+            "dark": {
+              "type": "string"
+            },
+            "light": {
+              "type": "string"
+            }
+          }
+        },
+        "stacked": {
+          "type": "object",
+          "properties": {
+            "dark": {
+              "type": "string"
+            },
+            "light": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "generate": {
+      "type": "object",
+      "description": "Generator options.",
+      "properties": {
+        "mono": {
+          "type": "boolean",
+          "default": true,
+          "description": "false if the mark can't be one colour (e.g. it sits on a tile): skips one-colour logos, watermarks and ghost marks."
+        },
+        "logoSizes": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "default": [
+            180,
+            400,
+            800,
+            1600,
+            3000
+          ]
+        },
+        "signLabel": {
+          "type": "string",
+          "description": "Top-right text on the site sign; \\n for line breaks."
+        },
+        "labelText": {
+          "type": "string",
+          "description": "Second line on the service label."
+        },
+        "signatureIconUrl": {
+          "type": "string",
+          "description": "Public URL of the icon in the email signature. Default: https://<website>/icon-192.png."
+        }
+      }
+    },
+    "colours": {
+      "type": "object",
+      "description": "Palette for the colour files and style guide: { key: { name, hex, cmyk?, usage } }. Default: derived from the theme.",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "name",
+          "hex"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "hex": {
+            "type": "string"
+          },
+          "cmyk": {
+            "type": "string"
+          },
+          "usage": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "portal": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "default": "Brand portal"
+        },
+        "workerName": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]{1,63}$",
+          "description": "Cloudflare Worker name. Default: <short-name>-brand-portal."
+        },
+        "bucket": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{1,61}[a-z0-9]$",
+          "description": "R2 bucket name. Default: <short-name>-brand-files."
+        },
+        "kitDir": {
+          "type": "string",
+          "default": "kit"
+        },
+        "logo": {
+          "type": "string",
+          "description": "SVG shown in the portal header (dark background)."
+        },
+        "icon": {
+          "type": "string",
+          "description": "SVG used as the browser tab icon."
+        },
+        "colours": {
+          "type": "string",
+          "description": "Colour JSON: { \"colors\": { key: { name, hex, rgb, cmyk, usage } } }."
+        },
+        "publish": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Top-level files and folders in the kit to publish."
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Regexes of kit paths to keep private."
+        },
+        "lightBackground": {
+          "type": "string",
+          "description": "Regex: files previewed on a light background."
+        },
+        "compatibilityDate": {
+          "type": "string"
+        }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "description": "Portal colours and fonts. Only ink, text and accent are needed; the rest is derived.",
+      "properties": {
+        "ink": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "text": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "accent": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "fonts": {
+          "type": "object",
+          "properties": {
+            "display": {
+              "$ref": "#/$defs/fontOrList"
+            },
+            "body": {
+              "$ref": "#/$defs/fontOrList"
+            },
+            "mono": {
+              "$ref": "#/$defs/fontOrList"
+            }
+          }
+        },
+        "paper": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "description": "Light surface for print and light versions. Default #FFFFFF."
+        },
+        "onPaper": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "description": "Text on paper. Default: ink."
+        }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "description": "[[id, label], \u2026] in display order.",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "rules": {
+      "type": "array",
+      "description": "Checked before the built-in rules. match is a case-insensitive regex on the kit path.",
+      "items": {
+        "type": "object",
+        "required": [
+          "match",
+          "cat"
+        ],
+        "properties": {
+          "match": {
+            "type": "string"
+          },
+          "cat": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "desc": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "previews": {
+      "type": "object",
+      "description": "Explicit preview images: { \"print/x.pdf\": \"print/previews/x.png\" }.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "font": {
+      "type": "object",
+      "required": [
+        "family",
+        "file"
+      ],
+      "properties": {
+        "family": {
+          "type": "string"
+        },
+        "file": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "string"
+        },
+        "stretch": {
+          "type": "string"
+        },
+        "style": {
+          "type": "object",
+          "properties": {
+            "weight": {
+              "type": "number"
+            },
+            "stretch": {
+              "type": "string"
+            },
+            "uppercase": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "fontOrList": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/font"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/font"
+          }
+        }
+      ]
+    }
+  }
+}
