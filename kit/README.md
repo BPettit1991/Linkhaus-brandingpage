@@ -1,6 +1,6 @@
 # Linkhaus brand kit
 
-Strategy in, systems out.
+Strategy in, systems out. From decision to done.
 
 Everything here is a master file. Use the versions in this kit rather than copies from emails or screenshots.
 

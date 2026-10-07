@@ -20,7 +20,9 @@ const b = RAW.business || {};
 export const BIZ = {
   name: b.legalName || CFG.brand.name,
   short: CFG.brand.shortName,
-  tagline: b.tagline || CFG.brand.specimen.headline || '',
+  // A "\n" in the tagline sets where it breaks on the designs; elsewhere it reads as a space.
+  tagline: (b.tagline || CFG.brand.specimen.headline || '').replace(/\s*\n\s*/g, ' '),
+  tagLines: (b.tagline || CFG.brand.specimen.headline || '').split(/\s*\n\s*/).filter(Boolean),
   phone: b.phone || CFG.brand.phone || '',
   phoneIntl: b.phoneIntl || '',
   email: b.email || '',
@@ -144,6 +146,7 @@ export const BASE_CSS = `${FONT_CSS}
 .accent-text{background:linear-gradient(135deg,${C.accentPale} 0%,${C.accentLight} 35%,${C.accent} 70%,${C.accentDeep} 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .light-text{background:linear-gradient(180deg,#FFFFFF 0%,${mix(C.text, '#888888', 0.15)} 55%,${mix(C.text, C.ink, 0.45)} 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .z{position:relative;z-index:2}
+.fit{white-space:nowrap;max-width:100%}
 /* Dark surface: fine grid, accent glow, vignette. --gx/--gy move the glow, --grid sets the step. */
 .surface{position:absolute;inset:0;background:${C.ink};overflow:hidden}
 .surface::before{content:"";position:absolute;inset:0;background:
@@ -196,12 +199,24 @@ export async function browser() {
 }
 export async function close() { if (_browser) await _browser.close(); _browser = null; }
 
+// Shrinks each .fit element (text set on fixed lines, e.g. a tagline with "\n") until its widest
+// line fits its box, so a set line break never turns into a wrap. Runs in the page.
+function fitText() {
+  for (const el of document.querySelectorAll('.fit')) {
+    let size = parseFloat(getComputedStyle(el).fontSize);
+    while (el.scrollWidth > el.clientWidth + 1 && size > 8) { size *= 0.97; el.style.fontSize = `${size}px`; }
+  }
+}
+// Class for a tagline block: set lines fit their box; a plain tagline wraps as before.
+export const tagClass = () => (BIZ.tagLines.length > 1 ? 'display light-text fit' : 'display light-text');
+
 // HTML -> PNG/JPG at an exact pixel size (scale = device pixel ratio).
 export async function png(html, file, { w, h, scale = 1, type = 'png', transparent = false, quality } = {}) {
   const ctx = await (await browser()).newContext({ viewport: { width: Math.round(w), height: Math.round(h) }, deviceScaleFactor: scale });
   const pg = await ctx.newPage();
   await pg.setContent(html, { waitUntil: 'load' });
   await pg.evaluate(() => document.fonts.ready);
+  await pg.evaluate(fitText);
   mkdirSync(dirname(file), { recursive: true });
   await pg.screenshot({ path: file, type, omitBackground: type === 'png' && transparent, quality, clip: { x: 0, y: 0, width: Math.round(w), height: Math.round(h) } });
   await ctx.close();
@@ -212,6 +227,7 @@ export async function pdf(html, file, { wmm, hmm }) {
   const pg = await (await browser()).newPage();
   await pg.setContent(html, { waitUntil: 'load' });
   await pg.evaluate(() => document.fonts.ready);
+  await pg.evaluate(fitText);
   mkdirSync(dirname(file), { recursive: true });
   await pg.pdf({ path: file, width: `${wmm}mm`, height: `${hmm}mm`, printBackground: true, margin: { top: 0, right: 0, bottom: 0, left: 0 } });
   await pg.close();

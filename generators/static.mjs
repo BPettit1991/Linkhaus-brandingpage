@@ -4,7 +4,7 @@
 // no credentials) is left out rather than shown empty.
 import { join } from 'node:path';
 import { createRequire } from 'node:module';
-import { KIT, BIZ, C, GEN, PREFIX, ONE_COLOUR, logo, logoRatio, med, rule, rgba, page, printDoc, png, pdf, preview, write, out, imgData, close, credLine, areasLine } from './lib.mjs';
+import { KIT, BIZ, C, GEN, PREFIX, ONE_COLOUR, logo, logoRatio, med, rule, rgba, page, printDoc, png, pdf, preview, write, out, imgData, close, credLine, areasLine, tagClass } from './lib.mjs';
 
 const require = createRequire(import.meta.url);
 const H = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -41,8 +41,8 @@ export async function social() {
 
   // Covers. Content stays inside each platform's safe area.
   const cover = (w, h, { logoH, tag, align = 'center', padR = 0, safeW = w }) => {
-    const side = `<div>
-        ${BIZ.tagline ? `<div class="display light-text" style="font-size:${tag}px">${H(BIZ.tagline)}</div>` : ''}
+    const side = `<div style="min-width:0">
+        ${BIZ.tagline ? `<div class="${tagClass()}" style="font-size:${tag}px">${BIZ.tagLines.map(H).join('<br>')}</div>` : ''}
         ${BIZ.areas.length ? `<div class="lbl" style="font-size:${tag * 0.2}px;margin-top:${tag * 0.2}px">${H(BIZ.areas.join(' · '))}</div>` : ''}
         ${BIZ.phone ? `<div style="display:flex;align-items:center;gap:${tag * 0.14}px;margin-top:${tag * 0.16}px">${med('phone', `${tag * 0.5}px`)}<span class="display accent-text" style="font-size:${tag * 0.52}px">${H(BIZ.phone)}</span></div>` : ''}
       </div>`;
@@ -115,7 +115,7 @@ export async function social() {
   await shot(page(`${surface('--gy:38%;--grid:64px')}${streaks(1080, 1920, { x: 0.7 })}
     <div class="z" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:250px 90px">
       <div style="height:${logoRatio('stacked') > 1.6 ? 260 : 500}px;max-width:900px;display:grid;place-items:center">${logo('stacked', 'dark')}</div>
-      ${BIZ.tagline ? `<div class="display light-text" style="font-size:92px;margin-top:60px">${H(BIZ.tagline)}</div>` : ''}
+      ${BIZ.tagline ? `<div class="${tagClass()}" style="font-size:92px;margin-top:60px">${BIZ.tagLines.map(H).join('<br>')}</div>` : ''}
       ${rule('width:520px;margin:42px auto 0')}
       <div class="lbl" style="font-size:24px;margin-top:42px">${H(BIZ.cta)}</div>
       ${BIZ.phone ? `<div style="display:flex;align-items:center;gap:22px;margin-top:18px">${med('phone', '104px')}<span class="display accent-text" style="font-size:120px">${H(BIZ.phone)}</span></div>` : ''}
@@ -136,7 +136,7 @@ export async function digital() {
   await shot(page(`${surface('--gy:40%')}${streaks(1200, 630, { x: 0.8 })}
     <div class="z" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:60px">
       <div style="height:150px;max-width:900px">${logo('horizontal', 'dark')}</div>
-      ${BIZ.tagline ? `<div class="display light-text" style="font-size:64px">${H(BIZ.tagline)}</div>` : ''}
+      ${BIZ.tagline ? `<div class="${tagClass()}" style="font-size:64px">${BIZ.tagLines.map(H).join('<br>')}</div>` : ''}
       ${BIZ.website ? `<div class="lbl" style="font-size:22px">${H(BIZ.website)}</div>` : ''}
     </div>`, { w: 1200, h: 630 }), 'digital', 'share-image-1200x630.png', 1200, 630);
 
