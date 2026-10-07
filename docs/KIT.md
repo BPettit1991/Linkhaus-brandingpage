@@ -60,5 +60,9 @@ npm run generate -- --only print,social
 - **Logo masters are found by name:** `icon`, `horizontal`, `stacked`/`primary`/`full`, each with `dark-bg` or `light-bg`. A missing one falls back to the nearest (stacked to horizontal to icon; light to dark). Set `"logos"` to choose files explicitly.
 - **No vector logo?** `npm run trace -- source/logo.jpg --colors "#1B1A1B,#A67939" --out kit/logos/svg/<prefix>logo-stacked-light-bg.svg`, and again with `--map "#1B1A1B=#FFFFFF"` for the dark version. Keep the source outside `kit/`.
 - **Logo on a tile** (a coloured square behind the mark)? Set `"generate": { "mono": false }` so nothing is flooded to one colour.
+- **Leave outputs out** that don't fit the business (e.g. a consultancy has no van): `"generate": { "skip": ["site-sign", "vehicle-door-magnet", "service-label"] }`. Names are the output file names without the prefix; earlier copies are removed.
+- **Dark accent?** If the accent is too dark to read on ink, set `theme.accentOnDark` (e.g. the brand's light tint). Phone numbers, headline accents and icon fills on dark surfaces use it.
+- **Tagline line breaks:** put `\n` in `business.tagline` to set where it breaks; each line then shrinks to fit rather than wrapping mid-sentence.
+- **The brand's own icons:** set a service's `icon` to an SVG path from the repo root (e.g. `source/icons/automation.svg`). It keeps its stroke width, caps and joins; strokes take the medallion colour and fills the accent.
 - **Icons** for services: `bolt snowflake sun battery wrench droplet home leaf hammer brush truck sparkle users chart camera cup heart key ruler car shield star clock check`. Add more in `generators/icons.mjs`.
 - Generated files are overwritten on each run; edit the config, not the outputs. Anything you add by hand under another name is left alone.

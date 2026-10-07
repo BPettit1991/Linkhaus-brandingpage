@@ -34,7 +34,7 @@ All fonts are open-licence; the licence files are in `fonts/`.
 | `logos/app-icons` | 6 | Favicons and phone home-screen icons. |
 | `colors` | 2 | JSON and CSS. |
 | `social` | 13 | Profile pictures, covers, posts and stories. |
-| `print` | 14 | Print-ready PDFs at true size with bleed. |
+| `print` | 8 | Print-ready PDFs at true size with bleed. |
 | `digital` | 3 | Email signature, video-call background, share image. |
 | `video` | 0 | Films, logo sting and soundtrack masters. |
 
@@ -51,10 +51,9 @@ All fonts are open-licence; the licence files are in `fonts/`.
 | Stories and Reels | `social/stories/` | 1080×1920, 250 px clear top and bottom |
 
 ## Printing
-- PDFs are at true size with bleed (3 mm; 2 mm on labels). The trim size is in each file name.
+- PDFs are at true size with bleed (3 mm). The trim size is in each file name.
 - Business cards: 90×55 mm, 350 gsm or heavier, matt laminate.
-- Site sign: 900×600 mm corflute or ACM. Vehicle magnet: 600×400 mm, 0.8 mm magnetic vinyl.
-- Check phone numbers and licence numbers on the proof before approving.
+- Check phone numbers on the proof before approving.
 
 ## Video
 - **16:9** (1920×1080): Widescreen: YouTube, website, Facebook feed.

@@ -31,7 +31,7 @@
     "services": [
       {
         "name": "Operations Partner",
-        "icon": "clock",
+        "icon": "source/icons/linkhaus-icon-automation.svg",
         "lines": [
           "Admin,",
           "handled."
@@ -40,7 +40,7 @@
       },
       {
         "name": "Growth Partner",
-        "icon": "chart",
+        "icon": "source/icons/linkhaus-icon-data.svg",
         "lines": [
           "Content.",
           "Posting.",
@@ -50,7 +50,7 @@
       },
       {
         "name": "Full Partner",
-        "icon": "users",
+        "icon": "source/icons/linkhaus-icon-systems.svg",
         "lines": [
           "One operator,",
           "not three hires."
@@ -59,7 +59,7 @@
       },
       {
         "name": "Project work",
-        "icon": "ruler",
+        "icon": "source/icons/linkhaus-icon-engineering.svg",
         "lines": [
           "Scoped.",
           "Quoted.",
@@ -105,7 +105,8 @@
         "file": "fonts/JetBrainsMono-Variable.woff2",
         "weight": "100 800"
       }
-    }
+    },
+    "accentOnDark": "#93BF7D"
   },
   "rules": [
     {
@@ -170,5 +171,13 @@
       "hex": "#E3EDDE",
       "usage": "Tints: badges and subtle backgrounds."
     }
+  },
+  "generate": {
+    "skip": [
+      "site-sign",
+      "vehicle-door-magnet",
+      "service-label",
+      "profile-accent"
+    ]
   }
 }

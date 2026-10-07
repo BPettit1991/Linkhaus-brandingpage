@@ -44,6 +44,8 @@ export const BIZ = {
   trust: b.trust || null, // { title: ["Licensed.", "Insured.", "Local."], label: "..." }
 };
 export const GEN = RAW.generate || {};
+// generate.skip: outputs to leave out, by file name without the prefix (e.g. "site-sign").
+export const skipped = (name) => (GEN.skip || []).some((k) => name.startsWith(k));
 // False when the mark can't be shown in one colour (e.g. it sits on a background tile, which one
 // colour would flood). Then the one-colour logos, watermarks and ghost marks are skipped.
 export const ONE_COLOUR = GEN.mono !== false;
@@ -56,6 +58,8 @@ export const areasLine = () => BIZ.areas.length > 1 ? `${BIZ.areas.slice(0, -1).
 export const C = {
   ink: T.ink, text: T.text, muted: T.muted, line: T.line, panel: T.panel,
   accent: T.accent, accentLight: T.accentLight, accentDeep: T.accentDeep, accentPale: T.accentPale,
+  // Accent for text and fills on dark surfaces; default: the accent itself.
+  accentOnDark: RAW.theme?.accentOnDark || null,
   paper: RAW.theme?.paper || '#FFFFFF', onPaper: RAW.theme?.onPaper || T.ink,
   mutedOnPaper: mix(RAW.theme?.onPaper || T.ink, '#FFFFFF', 0.4),
 };
@@ -123,11 +127,14 @@ export function recolour(svg, color) {
 }
 
 // ---- Fonts and base CSS -----------------------------------------------------------
-const F = T.fonts || {};
+// theme.fonts.display / body / mono may each be one font or a list; FONTS normalises them.
+const list = (x) => (x ? [].concat(x) : []);
+export const FONTS = { display: list(T.fonts?.display)[0], body: list(T.fonts?.body), mono: list(T.fonts?.mono)[0] };
+const F = FONTS;
 const b64 = (file) => readFileSync(join(KIT, file)).toString('base64');
 const mime = (file) => ({ '.woff2': 'woff2', '.woff': 'woff', '.ttf': 'truetype', '.otf': 'opentype' })[extname(file)] || 'woff2';
 const face = (f) => (f && existsSync(join(KIT, f.file)) ? `@font-face{font-family:"${f.family}";font-weight:${f.weight || 400};${f.stretch ? `font-stretch:${f.stretch};` : ''}src:url(data:font/${mime(f.file)};base64,${b64(f.file)}) format("${mime(f.file)}");}` : '');
-export const FONT_CSS = [F.display, ...(F.body || []), F.mono].filter(Boolean).map(face).join('\n');
+export const FONT_CSS = [...list(T.fonts?.display), ...F.body, ...list(T.fonts?.mono)].filter(Boolean).map(face).join('\n');
 // Single quotes so the stacks also work inside style="…" attributes.
 const fam = (f, fb) => (f ? `'${f.family}',${fb}` : fb);
 const ds = F.display?.style || {};
@@ -136,6 +143,12 @@ export const FAM = {
   body: fam(F.body?.[0], "'Segoe UI',Arial,sans-serif"),
   mono: fam(F.mono, 'ui-monospace,Menlo,monospace'),
 };
+// Gradient for accent text, which always sits on a dark surface. With theme.accentOnDark it stays in
+// that lighter colour, so a dark accent doesn't fade into the background.
+const AD = C.accentOnDark;
+const ACCENT_TEXT = AD
+  ? `${mix(AD, '#FFFFFF', 0.45)} 0%,${mix(AD, '#FFFFFF', 0.18)} 35%,${AD} 70%,${mix(AD, C.accent, 0.3)} 100%`
+  : `${C.accentPale} 0%,${C.accentLight} 35%,${C.accent} 70%,${C.accentDeep} 100%`;
 export const BASE_CSS = `${FONT_CSS}
 *{box-sizing:border-box;margin:0;padding:0}
 .display{font-family:${FAM.display};font-weight:${ds.weight || 800};${ds.stretch ? `font-stretch:${ds.stretch};` : ''}line-height:.92;letter-spacing:-.005em;${ds.uppercase === false ? '' : 'text-transform:uppercase;'}}
@@ -143,7 +156,7 @@ export const BASE_CSS = `${FONT_CSS}
 .mono{font-family:${FAM.mono}}
 .lbl{font-family:${FAM.mono};font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:${C.accentLight}}
 .muted{color:${C.muted}}
-.accent-text{background:linear-gradient(135deg,${C.accentPale} 0%,${C.accentLight} 35%,${C.accent} 70%,${C.accentDeep} 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.accent-text{background:linear-gradient(135deg,${ACCENT_TEXT});-webkit-background-clip:text;background-clip:text;color:transparent}
 .light-text{background:linear-gradient(180deg,#FFFFFF 0%,${mix(C.text, '#888888', 0.15)} 55%,${mix(C.text, C.ink, 0.45)} 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .z{position:relative;z-index:2}
 .fit{white-space:nowrap;max-width:100%}
@@ -157,10 +170,30 @@ export const BASE_CSS = `${FONT_CSS}
 `;
 export const rule = (css = '') => `<div style="height:2px;background:linear-gradient(90deg,${rgba(C.accent, 0)},${C.accentLight} 20%,${C.accentPale} 50%,${C.accentLight} 80%,${rgba(C.accent, 0)});${css}"></div>`;
 
+// A built-in icon name, or the path (from the repo root) of the brand's own SVG icon. A brand icon keeps
+// its own stroke width, caps and joins; its strokes take the medallion colour and its fills the accent.
+export const isIconFile = (name) => /\.svg$/i.test(name || '');
+const iconCache = new Map();
+export function serviceIcon(name, color, fill) {
+  if (!isIconFile(name)) return iconSvg(name, color);
+  if (!iconCache.has(name)) {
+    const file = join(REPO, name);
+    if (!existsSync(file)) throw new Error(`Service icon not found: ${name} (paths are from the repo root).`);
+    iconCache.set(name, readFileSync(file, 'utf8'));
+  }
+  const src = iconCache.get(name);
+  const root = src.match(/<svg\b[^>]*>/i)?.[0] || '';
+  const attr = (a) => root.match(new RegExp(`\\s${a}="([^"]*)"`))?.[1];
+  const keep = ['stroke-width', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit'].filter(attr).map((a) => `${a}="${attr(a)}"`).join(' ');
+  const body = src.replace(/^[\s\S]*?<svg\b[^>]*>/i, '').replace(/<\/svg>\s*$/i, '')
+    .replace(/stroke="(?!none)[^"]*"/g, `stroke="${color}"`).replace(/fill="(?!none)[^"]*"/g, `fill="${fill}"`);
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${attr('viewBox') || '0 0 24 24'}" width="100%" height="100%" fill="none" stroke="${color}" ${keep || 'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"'} style="display:block">${body}</svg>`;
+}
+
 // Icon in a ring medallion. size is any CSS length.
 export function med(name, size, { light = false } = {}) {
   const ring = light ? C.accentDeep : C.accentLight;
-  return `<span style="display:inline-grid;place-items:center;flex:none;width:${size};height:${size};border-radius:50%;border:calc(${size} * .045) solid ${ring};background:${light ? rgba(C.accent, 0.08) : `radial-gradient(circle at 35% 30%,${rgba(C.accentLight, 0.22)},${rgba(C.ink, 0.6)} 70%)`};box-shadow:${light ? 'none' : `0 0 calc(${size} * .3) ${rgba(C.accent, 0.35)}`}"><span style="width:56%;height:56%">${iconSvg(name, light ? C.accentDeep : C.accentPale)}</span></span>`;
+  return `<span style="display:inline-grid;place-items:center;flex:none;width:${size};height:${size};border-radius:50%;border:calc(${size} * .045) solid ${ring};background:${light ? rgba(C.accent, 0.08) : `radial-gradient(circle at 35% 30%,${rgba(C.accentLight, 0.22)},${rgba(C.ink, 0.6)} 70%)`};box-shadow:${light ? 'none' : `0 0 calc(${size} * .3) ${rgba(C.accent, 0.35)}`}"><span style="width:56%;height:56%">${serviceIcon(name, light ? C.accentDeep : C.accentPale, light ? C.accent : C.accentOnDark || C.accentLight)}</span></span>`;
 }
 
 export function imgData(file) {

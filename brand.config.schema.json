@@ -59,7 +59,8 @@
           "description": "Name on letterhead and signatures. Default: brand.name."
         },
         "tagline": {
-          "type": "string"
+          "type": "string",
+          "description": "Use \\n to set where it breaks on the designs; each line then shrinks to fit instead of wrapping."
         },
         "phone": {
           "type": "string",
@@ -143,7 +144,7 @@
               },
               "icon": {
                 "type": "string",
-                "description": "An icon name from generators/icons.mjs, e.g. bolt, wrench, droplet, home, leaf, sun."
+                "description": "An icon name from generators/icons.mjs (e.g. bolt, wrench, droplet, home, leaf, sun), or the path from the repo root of the brand's own SVG icon (e.g. source/icons/automation.svg). Its strokes take the medallion colour and its fills the accent."
               },
               "lines": {
                 "type": "array",
@@ -236,6 +237,13 @@
         "signatureIconUrl": {
           "type": "string",
           "description": "Public URL of the icon in the email signature. Default: https://<website>/icon-192.png."
+        },
+        "skip": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Outputs to leave out, by file name without the prefix, e.g. [\"site-sign\", \"vehicle-door-magnet\", \"service-label\"]. Earlier copies are removed."
         }
       }
     },
@@ -359,12 +367,17 @@
           "type": "string",
           "pattern": "^#[0-9A-Fa-f]{6}$",
           "description": "Text on paper. Default: ink."
+        },
+        "accentOnDark": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "description": "Accent for text and icon fills on dark surfaces (phone numbers, headline accents). Set it when the accent is too dark to read on ink. Default: the accent."
         }
       }
     },
     "categories": {
       "type": "array",
-      "description": "[[id, label], \u2026] in display order.",
+      "description": "[[id, label], …] in display order.",
       "items": {
         "type": "array",
         "prefixItems": [

@@ -6,7 +6,7 @@
 //   kit/README.md                            (specs, file index, platforms, printing, video)
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { KIT, CFG, BIZ, C, PREFIX, LOGOS, FAM, FONT_CSS, logo, write, mix, REPO, areasLine } from './lib.mjs';
+import { KIT, CFG, BIZ, C, PREFIX, LOGOS, FAM, FONT_CSS, FONTS, logo, write, mix, REPO, areasLine, skipped } from './lib.mjs';
 import { ASPECT } from '../portal/rules.mjs';
 
 const RAW = JSON.parse(readFileSync(join(REPO, 'brand.config.json'), 'utf8'));
@@ -47,7 +47,7 @@ export function styleGuide({ force = false } = {}) {
   const file = join(KIT, 'style-guide.html');
   if (existsSync(file) && !force) return console.log('kept', relative(REPO, file), '(exists; --force to regenerate)');
   const pal = Object.values(palette());
-  const F = CFG.theme.fonts || {};
+  const F = FONTS;
   const marks = [['Primary', 'stacked'], ['Horizontal', 'horizontal'], ['Icon', 'icon']].filter(([, k], i, a) => a.findIndex(([, k2]) => LOGOS[k2].dark === LOGOS[k].dark) === i);
   const html = `<!doctype html><html lang="${CFG.brand.locale}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${H(CFG.brand.name)} style guide</title>
 <style>${FONT_CSS}
@@ -96,7 +96,7 @@ export function readme({ force = false } = {}) {
   const file = join(KIT, 'README.md');
   if (existsSync(file) && !force) return console.log('kept', relative(REPO, file), '(exists; --force to regenerate)');
   const pal = Object.values(palette());
-  const F = CFG.theme.fonts || {};
+  const F = FONTS;
   const count = (dir) => { const d = join(KIT, dir); if (!existsSync(d)) return 0; const w = (p) => statSync(p).isDirectory() ? readdirSync(p).reduce((n, x) => n + w(join(p, x)), 0) : 1; return w(d); };
   const md = `# ${CFG.brand.name} brand kit
 
@@ -141,10 +141,13 @@ All fonts are open-licence; the licence files are in \`fonts/\`.
 | Stories and Reels | \`social/stories/\` | 1080×1920, 250 px clear top and bottom |
 
 ## Printing
-- PDFs are at true size with bleed (3 mm; 2 mm on labels). The trim size is in each file name.
-- Business cards: 90×55 mm, 350 gsm or heavier, matt laminate.
-- Site sign: 900×600 mm corflute or ACM. Vehicle magnet: 600×400 mm, 0.8 mm magnetic vinyl.
-- Check phone numbers and licence numbers on the proof before approving.
+${[
+  `- PDFs are at true size with bleed (3 mm${skipped('service-label') ? '' : '; 2 mm on labels'}). The trim size is in each file name.`,
+  '- Business cards: 90×55 mm, 350 gsm or heavier, matt laminate.',
+  !skipped('site-sign') && '- Site sign: 900×600 mm corflute or ACM.',
+  !skipped('vehicle-door-magnet') && '- Vehicle magnet: 600×400 mm, 0.8 mm magnetic vinyl.',
+  `- Check phone numbers${BIZ.credentials.length ? ' and licence numbers' : ''} on the proof before approving.`,
+].filter(Boolean).join('\n')}
 
 ## Video
 ${Object.entries(ASPECT).filter(([k]) => k !== '4x5').map(([k, [w, h, use]]) => `- **${k.replace('x', ':')}** (${w}×${h}): ${use}.`).join('\n')}

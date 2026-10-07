@@ -3,7 +3,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { timeline } from '../film.mjs';
-import { recolour, LOGOS, BIZ, logo } from '../lib.mjs';
+import { mkdtempSync, writeFileSync } from 'node:fs';
+import { join, relative } from 'node:path';
+import { tmpdir } from 'node:os';
+import { recolour, LOGOS, BIZ, logo, FONTS, serviceIcon, isIconFile } from '../lib.mjs';
+import { REPO } from '../../portal/config.mjs';
 import { synth } from '../soundtrack.mjs';
 import { palette } from '../guides.mjs';
 import { ICONS } from '../icons.mjs';
@@ -40,6 +44,25 @@ test('demo brand resolves logo masters and inlines them sized to the box', () =>
 });
 
 test('every service icon exists and the palette has hex colours', () => {
-  for (const s of BIZ.services) assert.ok(ICONS[s.icon], `unknown icon ${s.icon}`);
+  for (const s of BIZ.services) assert.ok(ICONS[s.icon] || isIconFile(s.icon), `unknown icon ${s.icon}`);
   for (const p of Object.values(palette())) assert.match(p.hex, /^#[0-9a-f]{6}$/i);
+});
+
+test('a brand SVG icon keeps its stroke style and takes the medallion colours', () => {
+  const file = join(mkdtempSync(join(tmpdir(), 'icon-')), 'mark.svg');
+  writeFileSync(file, '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="butt"><path d="M4 4h16"/><rect x="10" y="10" width="3" height="3" fill="#446732" stroke="none"/></svg>');
+  const svg = serviceIcon(relative(REPO, file), '#FFFFFF', '#93BF7D');
+  assert.match(svg, /stroke-width="2"/);
+  assert.match(svg, /stroke-linecap="butt"/);
+  assert.match(svg, /fill="#93BF7D"/);
+  assert.doesNotMatch(svg, /#111111|#446732/);
+  assert.match(svg, /stroke="none"/);
+  assert.ok(isIconFile('source/icons/a.svg') && !isIconFile('bolt'));
+  assert.match(serviceIcon('bolt', '#FFFFFF'), /stroke="#FFFFFF"/);
+});
+
+test('fonts accept one font or a list for each role', () => {
+  assert.ok(Array.isArray(FONTS.body));
+  assert.ok(!FONTS.display || !Array.isArray(FONTS.display));
+  assert.ok(!FONTS.mono || !Array.isArray(FONTS.mono));
 });

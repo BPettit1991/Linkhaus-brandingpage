@@ -2,9 +2,10 @@
 // and colours. PNG for screens, vector PDF (with a PNG preview) for print.
 // Content comes from "business" in brand.config.json; anything missing (no email, no services,
 // no credentials) is left out rather than shown empty.
+import { existsSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { createRequire } from 'node:module';
-import { KIT, BIZ, C, GEN, PREFIX, ONE_COLOUR, logo, logoRatio, med, rule, rgba, page, printDoc, png, pdf, preview, write, out, imgData, close, credLine, areasLine, tagClass } from './lib.mjs';
+import { KIT, BIZ, C, GEN, PREFIX, ONE_COLOUR, logo, logoRatio, med, rule, rgba, page, printDoc, png, pdf, preview, write, out, imgData, close, credLine, areasLine, tagClass, skipped } from './lib.mjs';
 
 const require = createRequire(import.meta.url);
 const H = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -27,7 +28,9 @@ function streaks(w, h, { x = 0.62, angle = -24, opacity = 1 } = {}) {
 // Faint oversized icon mark in a corner.
 const ghost = (style, opacity = 0.06) => !ONE_COLOUR ? '' : `<div style="position:absolute;${style};opacity:${opacity}">${logo('icon', 'dark', { color: C.text })}</div>`;
 const surface = (css = '') => `<div class="surface" style="${css}"></div>`;
-const shot = (html, dir, name, w, h) => png(html, out(dir, name), { w, h });
+// Skipped outputs (generate.skip) aren't rendered, and an earlier copy is removed.
+const drop = (file) => existsSync(file) && rmSync(file);
+const shot = (html, dir, name, w, h) => (skipped(name) ? drop(out(dir, name)) : png(html, out(dir, name), { w, h }));
 
 // ------------------------------------------------------------------------- social ---
 export async function social() {
@@ -165,6 +168,7 @@ const P_CSS = `.surface::after{display:none}`;
 const doc = (pages, w, h) => printDoc(pages, w, h, P_CSS);
 // The preview shares the PDF's name so the portal shows it as the PDF's thumbnail.
 async function printAll(pages, w, h, name, previewPage = pages[0]) {
+  if (skipped(name)) { drop(out('print', `${name}.pdf`)); drop(out('print/previews', `${name}.png`)); return; }
   await pdf(doc(pages, w, h), out('print', `${name}.pdf`), { wmm: w, hmm: h });
   await preview(doc([previewPage], w, h), out('print/previews', `${name}.png`), { wmm: w, hmm: h });
 }
