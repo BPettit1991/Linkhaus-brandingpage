@@ -33,7 +33,7 @@ export function filmHtml(cut, w, h) {
   const scene = (id, inner, css = '') => `<section id="${id}" class="scene" style="${css}">${inner}</section>`;
   const lines = (arr, cls, size) => arr.map((l, i) => `<span class="ln"><span class="${cls}" data-i="${i}" style="font-size:${size}">${H(l)}</span></span>`).join('');
 
-  const tagWords = (BIZ.tagline || BIZ.short).split(/(?<=[.!?])\s+/);
+  const tagWords = BIZ.tagLines.length > 1 ? BIZ.tagLines : (BIZ.tagline || BIZ.short).split(/(?<=[.!?])\s+/);
   const body = `
   <div class="surface" id="bg"></div><div id="streak"></div>
   ${scene('tagline', `<div class="stack">${lines(tagWords, 'display light-text', portrait ? '15vmin' : '13vmin')}</div>`)}
@@ -50,7 +50,7 @@ export function filmHtml(cut, w, h) {
         <div id="horiz" style="height:${Math.min(portrait ? 22 : 26, (portrait ? 84 : 130) / ratio)}vmin">${logo('horizontal', 'dark')}</div>
       </div>
       <div class="endtxt">
-        ${BIZ.tagline ? `<div class="display light-text et" style="font-size:${portrait ? 8 : 6.4}vmin">${H(BIZ.tagline)}</div>` : ''}
+        ${BIZ.tagline ? `<div class="display light-text et" style="font-size:${portrait ? 8 : 6.4}vmin">${BIZ.tagLines.map(H).join('<br>')}</div>` : ''}
         ${cut !== 'sting' && BIZ.phone ? `<div class="et cta"><span class="lbl" style="font-size:2.4vmin">${H(BIZ.cta)}</span><span class="display accent-text" style="font-size:${portrait ? 10 : 8}vmin">${H(BIZ.phone)}</span></div>` : ''}
         ${cut !== 'sting' && BIZ.website ? `<div class="et body" style="font-size:3.4vmin;color:#fff;font-weight:600">${H(BIZ.website)}</div>` : ''}
       </div></div>
