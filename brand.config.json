@@ -1,0 +1,174 @@
+{
+  "$schema": "./brand.config.schema.json",
+  "brand": {
+    "name": "Linkhaus",
+    "shortName": "Linkhaus",
+    "filePrefix": "linkhaus-",
+    "phone": "0480 043 497",
+    "locale": "en-AU",
+    "specimen": {
+      "headline": "Strategy in, systems out.",
+      "line": "0480 043 497",
+      "about": "AI, automation and growth partner for Australian businesses. Based in NSW, working Australia-wide."
+    }
+  },
+  "portal": {
+    "title": "Brand portal",
+    "workerName": "linkhaus-brand-portal",
+    "bucket": "linkhaus-brand-files",
+    "kitDir": "kit"
+  },
+  "business": {
+    "tagline": "Strategy in, systems out.",
+    "phone": "0480 043 497",
+    "email": "hello@linkhaus.com.au",
+    "website": "linkhaus.com.au",
+    "areas": [
+      "NSW",
+      "Australia-wide"
+    ],
+    "abn": "ABN 39 614 990 330",
+    "services": [
+      {
+        "name": "Operations Partner",
+        "icon": "clock",
+        "lines": [
+          "Admin,",
+          "handled."
+        ],
+        "blurb": "Ongoing admin and workflow automation, built into the tools you already use."
+      },
+      {
+        "name": "Growth Partner",
+        "icon": "chart",
+        "lines": [
+          "Content.",
+          "Posting.",
+          "Meta ads."
+        ],
+        "blurb": "Facebook and Instagram content, posting and paid campaigns under one retainer."
+      },
+      {
+        "name": "Full Partner",
+        "icon": "users",
+        "lines": [
+          "One operator,",
+          "not three hires."
+        ],
+        "blurb": "Operations and Growth together, with one accountable person and one shared context."
+      },
+      {
+        "name": "Project work",
+        "icon": "ruler",
+        "lines": [
+          "Scoped.",
+          "Quoted.",
+          "Delivered."
+        ],
+        "blurb": "One-off work quoted upfront: ISO readiness, accessibility audits and phone system setup."
+      }
+    ],
+    "phoneIntl": "+61480043497",
+    "cta": "Book a 15-minute call",
+    "trust": {
+      "title": [
+        "One operator.",
+        "Your tools.",
+        "No handoffs."
+      ],
+      "label": "Built into the tools you already use"
+    }
+  },
+  "theme": {
+    "ink": "#16171A",
+    "text": "#EEF2F1",
+    "accent": "#446732",
+    "fonts": {
+      "display": {
+        "family": "Baloo 2",
+        "file": "fonts/Baloo2-Variable.woff2",
+        "weight": "400 800",
+        "style": {
+          "weight": 700,
+          "uppercase": false
+        }
+      },
+      "body": [
+        {
+          "family": "Inter",
+          "file": "fonts/Inter-Variable.woff2",
+          "weight": "100 900"
+        }
+      ],
+      "mono": {
+        "family": "JetBrains Mono",
+        "file": "fonts/JetBrainsMono-Variable.woff2",
+        "weight": "100 800"
+      }
+    }
+  },
+  "rules": [
+    {
+      "match": "^fonts/Archivo.*\\.(woff2?|ttf|otf)$",
+      "cat": "fonts",
+      "desc": "Display face: headlines, social, video and signage."
+    },
+    {
+      "match": "^fonts/Poppins.*\\.(woff2?|ttf|otf)$",
+      "cat": "fonts",
+      "desc": "Headings and body text for documents and print."
+    },
+    {
+      "match": "^fonts/IBMPlexMono.*\\.(woff2?|ttf|otf)$",
+      "cat": "fonts",
+      "desc": "Labels, codes and small print."
+    }
+  ],
+  "colours": {
+    "ink": {
+      "name": "Ink 900",
+      "hex": "#16171A",
+      "usage": "Primary text and primary dark surface."
+    },
+    "ink700": {
+      "name": "Ink 700",
+      "hex": "#212226",
+      "usage": "Secondary dark surface."
+    },
+    "grey500": {
+      "name": "Grey 500",
+      "hex": "#5B5D63",
+      "usage": "Secondary text, muted icons."
+    },
+    "grey100": {
+      "name": "Grey 100",
+      "hex": "#E2E3E0",
+      "usage": "Dividers, subtle fills."
+    },
+    "paper": {
+      "name": "Paper",
+      "hex": "#FFFFFF",
+      "usage": "Primary light surface; text on dark."
+    },
+    "green800": {
+      "name": "Haus Green 800",
+      "hex": "#2D4422",
+      "usage": "Pressed and active states."
+    },
+    "green600": {
+      "name": "Haus Green",
+      "hex": "#446732",
+      "usage": "The accent: buttons, links and the window in the mark on light backgrounds."
+    },
+    "green400": {
+      "name": "Haus Green 400",
+      "hex": "#93BF7D",
+      "usage": "Accent on dark surfaces; the window in the mark on dark backgrounds."
+    },
+    "green100": {
+      "name": "Haus Green 100",
+      "hex": "#E3EDDE",
+      "usage": "Tints: badges and subtle backgrounds."
+    }
+  }
+}

@@ -1,0 +1,24 @@
+/* Linkhaus — motion tokens
+   Motion is quiet and functional, like the voice. Things move to show cause
+   and effect, never to perform. Always honour prefers-reduced-motion. */
+
+:root {
+  --lh-ease: cubic-bezier(0.22, 0.61, 0.36, 1);   /* standard ease-out */
+  --lh-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --lh-dur-fast: 120ms;    /* hover, focus, small state changes */
+  --lh-dur-base: 200ms;    /* toggles, toasts, reveals */
+  --lh-dur-slow: 400ms;    /* page-level transitions */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --lh-dur-fast: 0ms;
+    --lh-dur-base: 0ms;
+    --lh-dur-slow: 0ms;
+  }
+}
+
+/* Usage:
+   .btn { transition: background var(--lh-dur-fast) var(--lh-ease); }
+*/

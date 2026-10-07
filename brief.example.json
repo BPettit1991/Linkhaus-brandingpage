@@ -1,0 +1,57 @@
+{
+  "name": "Acme Plumbing Pty Ltd",
+  "short": "Acme",
+  "domain": "acmeplumbing.com.au",
+  "phone": "0400 000 000",
+  "accent": "#1E6FD9",
+  "ink": "#0D1117",
+  "locale": "en-AU",
+  "people": "owner@acmeplumbing.com.au, @acmeplumbing.com.au",
+  "headline": "Fixed right, first time.",
+  "about": "Residential and commercial plumbing across Western Sydney. Lic. 123456C.",
+  "clearDemo": true,
+  "tagline": "Fixed right, first time.",
+  "email": "hello@acmeplumbing.com.au",
+  "areas": [
+    "Western Sydney",
+    "Blue Mountains"
+  ],
+  "credentials": [
+    {
+      "label": "Lic.",
+      "value": "123456C"
+    }
+  ],
+  "abn": "ABN 00 000 000 000",
+  "reviewUrl": "",
+  "services": [
+    {
+      "name": "Blocked drains",
+      "icon": "droplet",
+      "lines": [
+        "Blocked?",
+        "Cleared",
+        "today."
+      ],
+      "blurb": "CCTV drain inspection and jetting for homes and strata."
+    },
+    {
+      "name": "Hot water",
+      "icon": "sun",
+      "lines": [
+        "Hot water,",
+        "back on."
+      ],
+      "blurb": "Gas, electric and heat-pump systems, supplied and installed."
+    },
+    {
+      "name": "Renovations",
+      "icon": "home",
+      "lines": [
+        "Kitchens.",
+        "Bathrooms."
+      ],
+      "blurb": "Rough-in to fit-off for renovators and builders."
+    }
+  ]
+}

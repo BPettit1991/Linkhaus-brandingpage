@@ -1,0 +1,29 @@
+{
+  "name": "Linkhaus",
+  "short": "Linkhaus",
+  "domain": "linkhaus.com.au",
+  "phone": "0480 043 497",
+  "accent": "#446732",
+  "ink": "#16171A",
+  "locale": "en-AU",
+  "people": "@linkhaus.com.au",
+  "headline": "Strategy in, systems out.",
+  "about": "AI, automation and growth partner for Australian businesses. Based in NSW, working Australia-wide.",
+  "clearDemo": true,
+  "tagline": "Strategy in, systems out.",
+  "email": "hello@linkhaus.com.au",
+  "areas": ["NSW", "Australia-wide"],
+  "credentials": [],
+  "abn": "ABN 39 614 990 330",
+  "reviewUrl": "",
+  "services": [
+    { "name": "Operations Partner", "icon": "clock", "lines": ["Admin,", "handled."],
+      "blurb": "Ongoing admin and workflow automation, built into the tools you already use." },
+    { "name": "Growth Partner", "icon": "chart", "lines": ["Content.", "Posting.", "Meta ads."],
+      "blurb": "Facebook and Instagram content, posting and paid campaigns under one retainer." },
+    { "name": "Full Partner", "icon": "users", "lines": ["One operator,", "not three hires."],
+      "blurb": "Operations and Growth together, with one accountable person and one shared context." },
+    { "name": "Project work", "icon": "ruler", "lines": ["Scoped.", "Quoted.", "Delivered."],
+      "blurb": "One-off work quoted upfront: ISO readiness, accessibility audits and phone system setup." }
+  ]
+}
