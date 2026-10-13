@@ -1,0 +1,6 @@
+node_modules/
+portal/dist/
+portal/.wrangler/
+portal/.dev.vars
+portal/wrangler.generated.json
+.DS_Store

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <!-- Full-bleed version of linkhaus-appicon-green.svg for circle-cropped profile pictures. Same mark and colours. -->
+  <rect width="1080" height="1080" fill="#446732"/>
+  <g transform="translate(200,270) scale(10)">
+    <path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#FFFFFF"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#446732"/>
+  </g>
+</svg>

@@ -1,0 +1,18 @@
+{
+  "neutral": {
+    "ink900": { "hex": "#16171A", "usage": "primary text, primary dark surface" },
+    "ink700": { "hex": "#212226", "usage": "secondary dark surface" },
+    "grey500": { "hex": "#5B5D63", "usage": "secondary text, muted icons" },
+    "grey300": { "hex": "#9A9CA3", "usage": "borders, disabled states" },
+    "grey100": { "hex": "#E2E3E0", "usage": "dividers, subtle fills" },
+    "paper50": { "hex": "#FFFFFF", "usage": "primary light surface / app background" },
+    "white": { "hex": "#FFFFFF", "usage": "true white, dark-mode text" }
+  },
+  "accent": {
+    "green800": { "hex": "#2D4422", "usage": "pressed / active state" },
+    "green600": { "hex": "#446732", "usage": "primary accent — buttons, links, brand mark" },
+    "green400": { "hex": "#93BF7D", "usage": "accent on dark surfaces, hover state" },
+    "green100": { "hex": "#E3EDDE", "usage": "tint — badges, subtle backgrounds" }
+  },
+  "rule": "Ink flips to white on dark surfaces. Haus Green never changes hue across light or dark mode — it is the one constant brand signal. Neutrals are crisp near-black on true white (cool grey scale), not the original warm charcoal/cream — changed per direct feedback that the warm tones read as murky on screen. The accent is a moss green with real saturation, not a washed-out pastel or a clean synthetic 'SaaS' green — earthy and confident, not corporate."
+}

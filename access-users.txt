@@ -1,0 +1,6 @@
+# People allowed into the brand portal. One email address per line.
+# A line starting with @ allows a whole domain, e.g. @example.com
+# Every deploy copies this list into the Cloudflare Access policy (portal/sync-access.mjs).
+# Adding a line lets that person in at the next deploy. Removing a line takes effect only when
+# the "Brand portal" workflow is run by hand with "Remove people not on the list" ticked.
+@linkhaus.com.au
