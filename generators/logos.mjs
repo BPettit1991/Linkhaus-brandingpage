@@ -44,7 +44,16 @@ export async function logos() {
   for (const [name, px, pad, radius] of [['favicon-32', 32, 3, 6], ['favicon-48', 48, 4, 9], ['apple-touch-icon-180', 180, 26, 0], ['app-icon-192', 192, 26, 0], ['app-icon-512', 512, 70, 0]]) {
     await png(tile(px, pad, radius), join(KIT, 'logos/app-icons', `${PREFIX}${name}.png`), { w: px, h: px, transparent: radius > 0 });
   }
-  write(join(KIT, 'logos/app-icons', `${PREFIX}favicon.svg`), logoSource('icon', 'dark') + '\n');
+  // SVG favicon: the same ink tile as favicon-32, so a light-on-dark icon stays visible in light browser tabs.
+  // A mark that already sits on its own tile (generate.mono false) is used as it is.
+  write(join(KIT, 'logos/app-icons', `${PREFIX}favicon.svg`), (ONE_COLOUR ? faviconSvg(logoSource('icon', 'dark'), C.ink) : logoSource('icon', 'dark')) + '\n');
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) { await logos(); await close(); }
+
+// The icon centred on a rounded tile, 32-unit grid (3 units padding, radius 6), as one standalone SVG.
+export function faviconSvg(icon, ink) {
+  const vb = icon.match(/viewBox="([^"]*)"/)?.[1] || '0 0 24 24';
+  const body = icon.replace(/^[\s\S]*?<svg\b[^>]*>/i, '').replace(/<\/svg>\s*$/i, '');
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="${ink}"/><svg x="3" y="3" width="26" height="26" viewBox="${vb}" preserveAspectRatio="xMidYMid meet">${body}</svg></svg>`;
+}

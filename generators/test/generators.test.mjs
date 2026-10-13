@@ -66,3 +66,12 @@ test('fonts accept one font or a list for each role', () => {
   assert.ok(!FONTS.display || !Array.isArray(FONTS.display));
   assert.ok(!FONTS.mono || !Array.isArray(FONTS.mono));
 });
+
+test('the SVG favicon puts the icon on an ink tile so it shows in light browser tabs', async () => {
+  const { faviconSvg } = await import('../logos.mjs');
+  const svg = faviconSvg('<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 0 48 54"><path d="M1 1" stroke="#FFFFFF"/></svg>', '#16171A');
+  assert.match(svg, /<rect width="32" height="32" rx="6" fill="#16171A"\/>/);
+  assert.match(svg, /viewBox="10 0 48 54"/);
+  assert.match(svg, /stroke="#FFFFFF"/);
+  assert.equal((svg.match(/<\/svg>/g) || []).length, 2);
+});
