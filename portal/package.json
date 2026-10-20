@@ -1,0 +1,18 @@
+{
+  "name": "brand-portal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Access-protected brand portal on Cloudflare Workers + R2, configured by ../brand.config.json",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "sync": "node sync-r2.mjs",
+    "access": "node sync-access.mjs",
+    "deploy": "node build.mjs && node sync-r2.mjs && wrangler deploy -c wrangler.generated.json",
+    "test": "node --test test/*.test.mjs"
+  },
+  "devDependencies": {
+    "sharp": "0.35.4",
+    "wrangler": "4.141.0"
+  }
+}

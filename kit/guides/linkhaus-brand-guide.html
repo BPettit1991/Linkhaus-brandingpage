@@ -1,0 +1,857 @@
+<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linkhaus Brand Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column with a sticky chapter index on wide screens; the brand's own tokens throughout. */
+:root {
+  --ink: #16171A; --ink-700: #212226; --grey-500: #5B5D63; --grey-300: #9A9CA3; --grey-100: #E2E3E0; --paper: #FFFFFF;
+  --green-800: #2D4422; --green: #446732; --green-400: #93BF7D; --green-100: #E3EDDE;
+
+  --bg: #FFFFFF; --surface: #F5F6F3; --fg: #16171A; --muted: #5B5D63; --line: #E2E3E0;
+  --accent: #446732; --accent-tint: #E3EDDE; --on-accent-tint: #2D4422; --good: #446732; --bad: #A33A2B;
+
+  --display: 'Baloo 2', 'Arial Rounded MT Bold', 'Trebuchet MS', sans-serif;
+  --body: 'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16171A; --surface: #1D1E22; --fg: #FFFFFF; --muted: #A9ABB1; --line: #2E3035;
+    --accent: #93BF7D; --accent-tint: #263820; --on-accent-tint: #C9E0BD; --good: #93BF7D; --bad: #E58A7B;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #16171A; --surface: #1D1E22; --fg: #FFFFFF; --muted: #A9ABB1; --line: #2E3035;
+  --accent: #93BF7D; --accent-tint: #263820; --on-accent-tint: #C9E0BD; --good: #93BF7D; --bad: #E58A7B;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4 { font-family: var(--display); margin: 0; text-wrap: balance; }
+h2 { font-size: clamp(1.75rem, 3.4vw, 2.5rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; }
+h3 { font-size: 1.3rem; font-weight: 600; line-height: 1.25; }
+h4 { font-size: 1.05rem; font-weight: 600; }
+p, ul, ol { margin: 0; }
+ul, ol { padding-left: 1.2em; display: grid; gap: 6px; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+code, .mono { font-family: var(--mono); font-size: 0.86em; }
+.label { font: 500 0.72rem/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 1.12rem; color: var(--muted); max-width: 62ch; }
+.prose { max-width: 66ch; display: grid; gap: 14px; }
+.muted { color: var(--muted); }
+
+/* ---------- Hero: reversed in both themes, like the mark's own dark use ---------- */
+.hero { background: #16171A; color: #FFFFFF; padding-inline: 20px; padding-block: 56px 48px;
+  background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+  background-size: 48px 48px; }
+.hero-in { max-width: 1140px; margin: 0 auto; display: grid; gap: 28px; }
+.hero .lockup { width: min(420px, 80vw); }
+.hero .lockup svg { width: 100%; height: auto; display: block; }
+.hero h1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 700; line-height: 1.02; letter-spacing: -0.015em; }
+.hero h1 span { display: block; color: #93BF7D; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 24px; font: 500 0.75rem/1.5 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: #A9ABB1; }
+
+/* ---------- Shell ---------- */
+.shell { max-width: 1140px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 80px; display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 56px; }
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; display: grid; gap: 2px; }
+nav.toc a { color: var(--muted); text-decoration: none; font-size: 0.9rem; padding: 5px 10px; border-radius: var(--r-sm); display: flex; gap: 10px; transition: background 120ms var(--ease), color 120ms var(--ease); }
+nav.toc a span { font-family: var(--mono); font-size: 0.75rem; color: var(--grey-300); padding-top: 2px; min-width: 1.5em; }
+nav.toc a:hover { background: var(--surface); color: var(--fg); }
+main { display: grid; gap: 88px; min-width: 0; }
+section { display: grid; gap: 28px; grid-template-columns: minmax(0, 1fr); scroll-margin-top: 24px; min-width: 0; }
+.sec-head { display: grid; gap: 10px; }
+.sec-head .label { color: var(--accent); }
+.block { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.tbl-wrap { min-width: 0; max-width: 100%; }
+
+/* ---------- Generic pieces ---------- */
+.grid { display: grid; gap: 16px; }
+.g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 20px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.card p { color: var(--muted); font-size: 0.95rem; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-tint); color: var(--on-accent-tint); padding: 16px 18px; border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size: 0.96rem; max-width: 72ch; }
+.callout strong { color: inherit; }
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); }
+table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 0.72rem/1.4 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); background: var(--surface); }
+tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pass { color: var(--good); font-weight: 600; }
+.fail { color: var(--bad); font-weight: 600; }
+
+/* Say / don't say pairs */
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.pair > div { border-radius: var(--r-md); padding: 16px 18px; display: grid; gap: 6px; align-content: start; }
+.pair .no { background: var(--surface); border: 1px dashed var(--line); }
+.pair .no p { color: var(--muted); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--bad) 55%, transparent); }
+.pair .yes { background: var(--accent-tint); border: 1px solid transparent; }
+.pair .yes p { color: var(--on-accent-tint); font-weight: 500; }
+.pair .label { font-size: 0.68rem; }
+.pair .yes .label { color: var(--on-accent-tint); }
+.ctx { font-size: 0.82rem; color: var(--muted); margin-top: -2px; }
+
+/* Words */
+.words { display: flex; flex-wrap: wrap; gap: 8px; }
+.words span { font-size: 0.88rem; padding: 4px 11px; border-radius: 100px; border: 1px solid var(--line); background: var(--surface); }
+.words.avoid span { text-decoration: line-through; color: var(--muted); }
+
+/* ---------- Logo tiles (fixed colours: a logo is shown on its real background) ---------- */
+.tile { border-radius: var(--r-md); border: 1px solid var(--line); overflow: hidden; display: grid; grid-template-rows: auto auto; min-width: 0; }
+.tile .art { display: grid; place-items: center; padding: 36px 28px; min-height: 180px; }
+.tile .art svg { width: 100%; height: auto; max-height: 120px; display: block; }
+.tile .art.sq svg { max-height: 96px; width: auto; }
+.tile .art.light { background: #FFFFFF; }
+.tile .art.dark { background: #16171A; }
+.tile .art.green { background: #446732; }
+.tile .art.tint { background: #E3EDDE; }
+.tile .cap { padding: 12px 16px; background: var(--surface); border-top: 1px solid var(--line); display: grid; gap: 2px; }
+.tile .cap b { font-weight: 600; font-size: 0.93rem; }
+.tile .cap span { font: 400 0.76rem/1.4 var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+
+.clear { background: #FFFFFF; border: 1px solid var(--line); border-radius: var(--r-md); padding: 28px; display: grid; place-items: center; }
+.clear-box { position: relative; padding: 46px; outline: 1px dashed #93BF7D; outline-offset: 0; background: repeating-linear-gradient(45deg, rgba(147,191,125,.10) 0 6px, transparent 6px 12px); }
+.clear-box .inner { background: #FFFFFF; padding: 0; }
+.clear-box svg { width: min(340px, 60vw); height: auto; display: block; }
+.clear-box .x { position: absolute; font: 500 0.7rem/1 var(--mono); color: #446732; letter-spacing: .06em; }
+.clear-box .x.t { top: 16px; left: 50%; transform: translateX(-50%); }
+.clear-box .x.l { left: 10px; top: 50%; transform: translateY(-50%); }
+
+.dont { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.dont .tile .art { min-height: 140px; position: relative; }
+.dont .tile .art::after { content: ""; position: absolute; inset: 14px; background: linear-gradient(to top right, transparent calc(50% - 1.5px), rgba(163,58,43,.75) calc(50% - 1.5px), rgba(163,58,43,.75) calc(50% + 1.5px), transparent calc(50% + 1.5px)); pointer-events: none; }
+
+/* ---------- Colour ---------- */
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+.sw { border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; display: grid; min-width: 0; background: var(--surface); }
+.sw .chip { height: 96px; display: flex; align-items: flex-end; padding: 10px 12px; font: 500 0.72rem/1 var(--mono); letter-spacing: .06em; }
+.sw .info { padding: 12px 14px 14px; display: grid; gap: 4px; }
+.sw .info b { font-family: var(--display); font-weight: 600; font-size: 1.05rem; }
+.sw .info .codes { font: 400 0.76rem/1.6 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.sw .info p { font-size: 0.85rem; color: var(--muted); }
+.copy { all: unset; cursor: pointer; font: 500 0.72rem/1 var(--mono); color: var(--accent); padding: 4px 0; }
+.copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ratio { display: flex; height: 44px; border-radius: var(--r-sm); overflow: hidden; border: 1px solid var(--line); }
+.ratio div { display: grid; place-items: center; font: 500 0.7rem/1 var(--mono); }
+.ratio-key { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 0.85rem; color: var(--muted); }
+
+/* ---------- Type ---------- */
+.face { border: 1px solid var(--line); border-radius: var(--r-md); padding: 22px; display: grid; gap: 10px; background: var(--surface); min-width: 0; }
+.face .spec { font-size: 2.6rem; line-height: 1; }
+.scale-row { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; align-items: baseline; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.scale-row:last-child { border-bottom: 0; }
+.scale-row .label { line-height: 1.5; }
+.scale-row .s { min-width: 0; overflow-wrap: anywhere; }
+
+/* ---------- Icons ---------- */
+.icons { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+.ic { border: 1px solid var(--line); border-radius: var(--r-md); padding: 18px 10px 12px; display: grid; justify-items: center; gap: 10px; color: var(--fg); background: var(--surface); }
+.ic svg { width: 40px; height: 40px; }
+.ic span { font: 500 0.72rem/1 var(--mono); color: var(--muted); }
+
+/* ---------- Spacing ---------- */
+.space-row { display: grid; grid-template-columns: 90px 64px minmax(0, 1fr); gap: 14px; align-items: center; font-size: 0.86rem; }
+.space-row .bar { height: 12px; background: var(--accent); border-radius: 2px; }
+.space-row .mono { color: var(--muted); }
+
+/* ---------- Checklist ---------- */
+.checklist { list-style: none; padding: 0; display: grid; gap: 10px; counter-reset: c; }
+.checklist li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px; align-items: start; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+.checklist li::before { content: ""; width: 18px; height: 18px; margin-top: 3px; border: 2px solid var(--accent); border-radius: 4px; }
+
+footer { border-top: 1px solid var(--line); padding-top: 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 0.85rem; color: var(--muted); }
+
+.toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); transform: translate(-50%, 12px); background: #16171A; color: #fff; font: 500 0.82rem/1 var(--mono); padding: 10px 14px; border-radius: 100px; opacity: 0; pointer-events: none; transition: opacity 200ms var(--ease), transform 200ms var(--ease); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (max-width: 960px) {
+  .shell { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  nav.toc { position: static; display: flex; flex-wrap: wrap; gap: 6px; }
+  nav.toc a { border: 1px solid var(--line); padding: 5px 10px; }
+  .g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .icons { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .g2, .g3, .g4, .pair, .dont { grid-template-columns: minmax(0, 1fr); }
+  .scale-row { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  main { gap: 64px; }
+  .space-row { grid-template-columns: 70px 52px minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style></head><body>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="lockup" aria-label="Linkhaus"><svg role="img" aria-label="Linkhaus" xmlns="http://www.w3.org/2000/svg" viewBox="-1070.1 -880.9 5266.6 1145.8">
+  <g transform="translate(-1267.79,-870.32) scale(20.8267)"><path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#FFFFFF"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#93BF7D"/></g>
+  <g transform="translate(0,0) scale(1,-1)"><path d="M71 421H223V6L152 -2Q115 -2 93.0 20.0Q71 42 71 79ZM152 -2V122H466Q473 112 478.0 96.5Q483 81 483 62Q483 30 469.0 14.0Q455 -2 430 -2ZM223 231H71V608Q81 610 101.5 613.0Q122 616 141 616Q185 616 204.0 601.0Q223 586 223 544Z" fill="#FFFFFF"/></g>
+    <g transform="translate(510,0) scale(1,-1)"><path d="M62 264H210V1Q201 -2 183.0 -4.5Q165 -7 144 -7Q101 -7 81.5 8.0Q62 23 62 62Z M210 187H62V474Q71 477 89.5 480.0Q108 483 129 483Q172 483 191.0 468.5Q210 454 210 413Z" fill="#FFFFFF"/><path d="M53 618Q53 652 76.5 675.0Q100 698 136 698Q173 698 196.0 675.0Q219 652 219 618Q219 585 196.0 561.0Q173 537 136 537Q100 537 76.5 561.0Q53 585 53 618Z" fill="#93BF7D"/></g>
+    <g transform="translate(782,0) scale(1,-1)"><path d="M517 311V217H368V306Q368 343 346.5 360.5Q325 378 290 378Q265 378 244.0 371.5Q223 365 206 356V217H58V373Q58 398 68.5 414.5Q79 431 99 444Q131 466 181.0 480.5Q231 495 291 495Q399 495 458.0 447.5Q517 400 517 311ZM58 263H206V1Q196 -2 178.0 -4.5Q160 -7 139 -7Q97 -7 77.5 8.0Q58 23 58 62ZM368 263H517V1Q507 -2 489.0 -4.5Q471 -7 450 -7Q408 -7 388.0 8.0Q368 23 368 62Z" fill="#FFFFFF"/></g>
+    <g transform="translate(1357,0) scale(1,-1)"><path d="M272 192 165 260 391 488Q436 487 463.5 467.0Q491 447 491 417Q491 391 473.0 370.5Q455 350 418 318ZM171 239 289 291 510 77Q506 37 486.0 14.5Q466 -8 429 -8Q402 -8 379.5 5.5Q357 19 332 50ZM60 265 208 262V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM208 185 60 188V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#FFFFFF"/></g>
+    <g transform="translate(1896,0) scale(1,-1)"><path d="M519 204H370V293Q370 339 346.5 358.5Q323 378 287 378Q255 378 229.5 366.0Q204 354 186 339L182 459Q205 472 239.0 483.5Q273 495 314 495Q409 495 464.0 446.5Q519 398 519 301ZM60 264H208V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM370 264H519V1Q509 -2 491.0 -4.5Q473 -7 452 -7Q409 -7 389.5 8.0Q370 23 370 62ZM208 187H60V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#FFFFFF"/></g>
+    <g transform="translate(2473,0) scale(1,-1)"><path d="M255 95Q278 95 300.5 99.5Q323 104 333 110V206L249 198Q215 196 195.0 184.0Q175 172 175 148Q175 124 194.0 109.5Q213 95 255 95ZM249 495Q353 495 415.0 451.5Q477 408 477 317V90Q477 65 464.0 49.5Q451 34 431 23Q401 5 356.5 -5.5Q312 -16 255 -16Q153 -16 92.5 24.0Q32 64 32 143Q32 211 74.0 247.5Q116 284 199 292L332 306V318Q332 352 305.5 367.0Q279 382 230 382Q192 382 155.5 373.0Q119 364 90 352Q78 360 69.5 376.5Q61 393 61 411Q61 453 107 472Q136 484 174.5 489.5Q213 495 249 495Z" fill="#FFFFFF"/></g>
+    <g transform="translate(3006,0) scale(1,-1)"><path d="M58 187V259H206V188Q206 142 229.5 122.0Q253 102 296 102Q323 102 341.0 107.0Q359 112 368 117V259H517V99Q517 75 507.5 58.0Q498 41 477 28Q445 8 398.5 -3.5Q352 -15 295 -15Q224 -15 170.5 6.0Q117 27 87.5 71.5Q58 116 58 187ZM517 214H368V478Q378 481 396.0 484.0Q414 487 435 487Q478 487 497.5 472.5Q517 458 517 417ZM206 214H58V478Q67 481 85.0 484.0Q103 487 124 487Q167 487 186.5 472.5Q206 458 206 417Z" fill="#FFFFFF"/></g>
+    <g transform="translate(3580,0) scale(1,-1)"><path d="M447 140Q447 67 392.0 25.5Q337 -16 232 -16Q150 -16 97.0 8.0Q44 32 44 79Q44 100 53.0 115.5Q62 131 76 140Q104 124 141.5 110.5Q179 97 227 97Q300 97 300 139Q300 157 287.0 167.5Q274 178 244 183L202 193Q122 210 82.5 245.5Q43 281 43 343Q43 413 99.5 454.5Q156 496 252 496Q300 496 339.5 486.5Q379 477 402.0 457.5Q425 438 425 409Q425 389 417.0 374.0Q409 359 396 349Q385 356 362.5 364.0Q340 372 313.5 377.0Q287 382 264 382Q228 382 208.0 372.5Q188 363 188 343Q188 330 199.5 320.5Q211 311 240 305L280 295Q369 275 408.0 237.5Q447 200 447 140Z" fill="#FFFFFF"/></g>
+</svg></div>
+    <h1>Strategy in, systems out.<span>From decision to done.</span></h1>
+    <p style="max-width:60ch;color:#C9CBD0;font-size:1.08rem">The Linkhaus brand guide: who we are, how we sound, and how the brand looks everywhere it appears. Use it before you write, design or brief anyone.</p>
+    <div class="meta"><span>Brand guide · Version 1.0</span><span>13 Oct 2026</span><span>Australian English</span><span>Owner: Ben Pettit</span></div>
+  </div>
+</header>
+
+<div class="shell">
+  <nav class="toc" aria-label="Chapters">
+    <a href="#foundation"><span>01</span>Foundation</a>
+    <a href="#voice"><span>02</span>Voice and tone</a>
+    <a href="#writing"><span>03</span>Writing style</a>
+    <a href="#logo"><span>04</span>Logo</a>
+    <a href="#colour"><span>05</span>Colour</a>
+    <a href="#type"><span>06</span>Typography</a>
+    <a href="#layout"><span>07</span>Layout and spacing</a>
+    <a href="#icons"><span>08</span>Icons</a>
+    <a href="#imagery"><span>09</span>Imagery</a>
+    <a href="#motion"><span>10</span>Motion</a>
+    <a href="#applications"><span>11</span>Applications</a>
+    <a href="#checklist"><span>12</span>Pre-publish checklist</a>
+  </nav>
+
+  <main>
+
+  <!-- 01 FOUNDATION -->
+  <section id="foundation">
+    <div class="sec-head">
+      <span class="label">01 · Foundation</span>
+      <h2>What Linkhaus is, and who it is for.</h2>
+    </div>
+    <div class="prose">
+      <p class="lede">Linkhaus is an AI and operations partner for Australian businesses. We work out what is worth automating, build it into the tools you already use, and keep it running. One accountable operator, from the decision to the thing that works.</p>
+    </div>
+
+    <div class="block">
+      <h3>The thesis</h3>
+      <div class="prose">
+        <p>Most businesses don't have an AI problem. They have a shipping problem. The ambition is there and the tools exist. What's missing is the line from a good decision to a running system. Linkhaus is that line.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Who we are for</h3>
+      <div class="grid g2">
+        <div class="card"><span class="label">Launch focus</span><h4>Trades and hospitality owners</h4><p>Owner-operators with 2 to 15 staff, and small venues: plumbers, electricians, builders, cafes, restaurants and takeaways. They lose hours each week to quoting, invoice chase-ups, rostering, bookings and posting. They want it handled, not a new app to learn.</p></div>
+        <div class="card"><span class="label">Also</span><h4>Teams past the pilot stage</h4><p>Founders and operators who have decided to use AI and need it built and running in production. The buyer is the person accountable for the outcome: an owner, a head of ops, a manager with a budget.</p></div>
+      </div>
+      <p class="muted" style="font-size:.92rem;max-width:70ch"><b>Not for:</b> teams shopping for a proof of concept to justify a budget, or anyone who wants a big firm's logo on the cover more than they want the thing built.</p>
+    </div>
+
+    <div class="block">
+      <h3>Where we sit</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th></th><th>Does the thinking</th><th>Does the building</th><th>What you get</th></tr></thead>
+        <tbody>
+          <tr><td>The big firm</td><td class="pass">Yes</td><td class="fail">No</td><td>A polished strategy, then a handoff. You still have to find someone to make it.</td></tr>
+          <tr><td>The dev shop or SaaS tool</td><td class="fail">No</td><td class="pass">Yes</td><td>Something fast, built against a brief nobody pressure-tested.</td></tr>
+          <tr><td>Part-time hires</td><td>Partly</td><td>Partly</td><td>Three people who have never spoken to each other, and three invoices.</td></tr>
+          <tr><td><b>Linkhaus</b></td><td class="pass">Yes</td><td class="pass">Yes</td><td><b>One accountable person, one shared context, working inside your tools.</b></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="block">
+      <h3>Messaging pillars</h3>
+      <p class="muted" style="max-width:70ch">Lead with whichever pillar fits the audience. Never blend all three into one vague sentence.</p>
+      <div class="grid g3">
+        <div class="card"><span class="label">Pillar 1</span><h4>Strategy that ships</h4><p>Advice you can build on. Every recommendation comes with the path to production attached, costed and sequenced.</p></div>
+        <div class="card"><span class="label">Pillar 2</span><h4>Systems, not slideware</h4><p>We hand over working systems inside the tools you already use, not a PDF to interpret. The deliverable is something that's on.</p></div>
+        <div class="card"><span class="label">Pillar 3</span><h4>Built to last</h4><p>Documented, owned by you, and still running after we step back. No black boxes, no lock-in, no new logins you didn't ask for.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Tagline</h3>
+      <div class="grid g2">
+        <div class="card"><span class="label">Primary</span><h4 style="font-size:1.4rem;line-height:1.2">Strategy in, systems out.<br>From decision to done.</h4><p>Always set on two lines, broken after "out." Never let it wrap mid-sentence.</p></div>
+        <div class="card"><span class="label">Short form</span><h4 style="font-size:1.4rem;line-height:1.2">Strategy in, systems out.</h4><p>For tight spaces: social bios, email footers, small banners.</p></div>
+      </div>
+      <p class="muted" style="font-size:.9rem">Retired: "AI, built to work." and "Where intelligence meets infrastructure." Don't use them in new material.</p>
+    </div>
+
+    <div class="block">
+      <h3>Services, as we name them</h3>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Name</th><th>One line</th></tr></thead>
+        <tbody>
+          <tr><td><b>Operations Partner</b></td><td>Ongoing admin and workflow automation, built into the tools you already use.</td></tr>
+          <tr><td><b>Growth Partner</b></td><td>Facebook and Instagram content, posting and paid campaigns under one retainer.</td></tr>
+          <tr><td><b>Full Partner</b></td><td>Operations and Growth together, with one accountable person and one shared context.</td></tr>
+          <tr><td><b>Project work</b></td><td>One-off work quoted upfront: ISO readiness consulting, accessibility audits and phone system setup.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout"><strong>Claims we never make.</strong> ISO work is "readiness consulting" or "audit preparation", never "certification". Only an accredited body certifies. Payroll is not offered. Don't describe a service we don't sell yet as "coming soon".</div>
+    </div>
+
+    <div class="block">
+      <h3>Proof</h3>
+      <div class="prose"><p>Specificity is the brand. One real, checkable number beats a paragraph of adjectives. Keep a running list per client: hours saved per week, invoices chased, response times, things now running. If a claim can't be checked, cut it.</p></div>
+    </div>
+  </section>
+
+  <!-- 02 VOICE -->
+  <section id="voice">
+    <div class="sec-head">
+      <span class="label">02 · Voice and tone</span>
+      <h2>A competent operator explaining a system to a peer.</h2>
+      <p class="lede">Linkhaus writes the way it builds: plainly, and only what's load-bearing. Confident, specific, never hyped.</p>
+    </div>
+
+    <div class="block">
+      <h3>Personality</h3>
+      <div class="grid g2">
+        <div class="card"><h4>Direct, not blunt</h4><p>Lead with the point, then the proof. Say what you'll do and what it costs. Be kind about it.</p></div>
+        <div class="card"><h4>Specific, not technical</h4><p>Name the task, the tool and the number. Skip jargon unless the reader uses it first.</p></div>
+        <div class="card"><h4>Calm, not hyped</h4><p>AI is a tool, not a miracle. We describe what it does, where it's good, and where plain automation is the better choice.</p></div>
+        <div class="card"><h4>Accountable, not salesy</h4><p>One person who answers. Say "I" or "we" and own the outcome. Admit limits plainly: "We don't offer that yet."</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Rules</h3>
+      <ol style="max-width:70ch">
+        <li><b>Point first.</b> The first sentence carries the message. No throat-clearing, no "In today's fast-paced world".</li>
+        <li><b>Short sentences, active voice, plain words.</b> "We set up your quote follow-ups", not "Quote follow-up processes will be implemented".</li>
+        <li><b>Checkable or cut.</b> Every claim is a number, a named task or a thing the reader can see working.</li>
+        <li><b>Their words, not ours.</b> Write "chasing unpaid invoices", not "accounts receivable workflow optimisation".</li>
+        <li><b>Honest about limits.</b> Say what we don't do and why. It builds more trust than any adjective.</li>
+      </ol>
+    </div>
+
+    <div class="block">
+      <h3>Say this, not that</h3>
+      <div class="pair">
+        <div class="no"><span class="label">Not this</span><p>We leverage cutting-edge AI to unlock seamless, transformative operational efficiencies.</p></div>
+        <div class="yes"><span class="label">This</span><p>We set up your quote follow-ups so they go out on time, every time. Most owners get back 4 to 6 hours a week.</p></div>
+      </div>
+      <p class="ctx">Website, services section. Use a real figure only once you have one from a client.</p>
+      <div class="pair">
+        <div class="no"><span class="label">Not this</span><p>Hi! Hope you're well! I'd love to jump on a quick call to explore synergies between our businesses!</p></div>
+        <div class="yes"><span class="label">This</span><p>Hi Sam, I noticed your quotes go out from a shared inbox. I automate follow-ups for trades businesses like yours. Worth a 15-minute call this week?</p></div>
+      </div>
+      <p class="ctx">Cold outreach email, first lines.</p>
+      <div class="pair">
+        <div class="no"><span class="label">Not this</span><p>🚀 Game-changing AI is here to revolutionise hospitality!!! 🔥</p></div>
+        <div class="yes"><span class="label">This</span><p>A cafe we work with used to spend Sunday night on the roster. Now it builds itself from availability, and the owner checks it in five minutes.</p></div>
+      </div>
+      <p class="ctx">Social post. Describe a real (permitted) example; never invent one.</p>
+    </div>
+
+    <div class="block">
+      <h3>Tone by context</h3>
+      <p class="muted" style="max-width:70ch">The voice stays the same. The tone moves with the moment.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Context</th><th>Tone</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Website</td><td>Clear, confident, concrete</td><td>One accountable operator, instead of three part-time hires.</td></tr>
+          <tr><td>Outreach</td><td>Brief, personal, low pressure</td><td>Worth a 15-minute call this week? If not, no follow-up from me.</td></tr>
+          <tr><td>Proposals</td><td>Precise, costed, sequenced</td><td>Week 1: map your quoting process. Week 2: follow-ups live in your inbox.</td></tr>
+          <tr><td>Social</td><td>Plain, useful, a little warm</td><td>Three admin tasks most cafes can stop doing by hand this month.</td></tr>
+          <tr><td>Invoices and reminders</td><td>Polite, factual, no guilt</td><td>A friendly reminder that invoice 1042 for $2,500 was due on 3 Oct.</td></tr>
+          <tr><td>When something breaks</td><td>Calm, owning, specific</td><td>The reminder emails stopped at 2 pm. I've fixed it and resent the 6 that were missed.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="block">
+      <h3>Words</h3>
+      <div class="grid g2">
+        <div class="card"><span class="label">Use</span><div class="words"><span>built</span><span>running</span><span>handled</span><span>in your tools</span><span>one person</span><span>hours back</span><span>chase-up</span><span>set up</span><span>owned by you</span><span>plain automation</span><span>costed</span><span>live</span></div></div>
+        <div class="card"><span class="label">Avoid</span><div class="words avoid"><span>unlock</span><span>elevate</span><span>seamless</span><span>revolutionary</span><span>cutting-edge</span><span>leverage</span><span>synergy</span><span>game-changer</span><span>transformative</span><span>solutions</span><span>AI-powered</span><span>empower</span></div></div>
+      </div>
+      <p class="muted" style="font-size:.9rem;max-width:70ch">"AI-powered" on its own claims nothing. Say what the AI does: "drafts the reply", "reads the docket", "sorts the bookings".</p>
+    </div>
+  </section>
+
+  <!-- 03 WRITING STYLE -->
+  <section id="writing">
+    <div class="sec-head">
+      <span class="label">03 · Writing style</span>
+      <h2>The house rules for every word.</h2>
+    </div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Topic</th><th>Rule</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Our name</td><td>Always <b>Linkhaus</b>: capital L, rest lower case. Never linkHAUS, LinkHaus or LINKHAUS in running text.</td><td>Linkhaus sets it up.</td></tr>
+        <tr><td>Spelling</td><td>Australian English.</td><td>organise, colour, centre, licence (noun), license (verb)</td></tr>
+        <tr><td>Headings</td><td>Sentence case. A full stop is fine on statement headlines.</td><td>Priced against what you'd otherwise hire for.</td></tr>
+        <tr><td>Dashes</td><td>No em dashes. Use a full stop, comma, colon or brackets.</td><td>Built in, not bolted on.</td></tr>
+        <tr><td>Lists</td><td>No serial (Oxford) comma unless it prevents confusion.</td><td>quotes, invoices and rosters</td></tr>
+        <tr><td>Numbers</td><td>Words for one to nine in prose; numerals for 10 and over, and always for money, time, measurements and stats.</td><td>three tasks · 12 staff · 5 minutes · 40%</td></tr>
+        <tr><td>Money</td><td>$ with commas, no cents unless needed. Say AUD once where it matters. Ranges with "to" in prose, an en rule in tables.</td><td>$2,500 to $4,000 a month (AUD)</td></tr>
+        <tr><td>Dates</td><td>Day, short month, year. No ordinals.</td><td>13 Oct 2026</td></tr>
+        <tr><td>Times</td><td>12-hour, lower case, space before am/pm.</td><td>9:30 am · 2 pm</td></tr>
+        <tr><td>Phone</td><td>Spaced in groups. International form for overseas audiences.</td><td>0480 043 497 · +61 480 043 497</td></tr>
+        <tr><td>Email and web</td><td>Lower case, no https:// in print.</td><td>hello@linkhaus.com.au · linkhaus.com.au</td></tr>
+        <tr><td>ABN</td><td>Spaced 2-3-3-3, on invoices, letterhead and the site footer.</td><td>ABN 39 614 990 330</td></tr>
+        <tr><td>Calls to action</td><td>Verb first, says exactly what happens.</td><td>Book a 15-minute call · Email one task</td></tr>
+        <tr><td>Emoji</td><td>Not in headings or sales copy. At most one in a social caption, and only if it adds meaning.</td><td></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- 04 LOGO -->
+  <section id="logo">
+    <div class="sec-head">
+      <span class="label">04 · Logo</span>
+      <h2>The name, drawn as one line.</h2>
+      <p class="lede">The icon is a single stroke that never lifts. It starts at the foot of an L, runs up the stem and keeps going: the top of the letter becomes the peak of a roof, closing on a short return that reads as a chimney. Set into the chimney is one small window, lit in Haus Green.</p>
+    </div>
+    <div class="callout"><strong>The rule:</strong> the window is the mark's only accent. Everything else is ink on light backgrounds, white on dark ones. The window never moves and never appears twice.</div>
+
+    <div class="block">
+      <h3>Lockups</h3>
+      <div class="grid g2">
+        <div class="tile"><div class="art light"><svg role="img" aria-label="Linkhaus" xmlns="http://www.w3.org/2000/svg" viewBox="-1070.1 -880.9 5266.6 1145.8">
+  <g transform="translate(-1267.79,-870.32) scale(20.8267)"><path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#16171A" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#16171A"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#446732"/></g>
+  <g transform="translate(0,0) scale(1,-1)"><path d="M71 421H223V6L152 -2Q115 -2 93.0 20.0Q71 42 71 79ZM152 -2V122H466Q473 112 478.0 96.5Q483 81 483 62Q483 30 469.0 14.0Q455 -2 430 -2ZM223 231H71V608Q81 610 101.5 613.0Q122 616 141 616Q185 616 204.0 601.0Q223 586 223 544Z" fill="#16171A"/></g>
+    <g transform="translate(510,0) scale(1,-1)"><path d="M62 264H210V1Q201 -2 183.0 -4.5Q165 -7 144 -7Q101 -7 81.5 8.0Q62 23 62 62Z M210 187H62V474Q71 477 89.5 480.0Q108 483 129 483Q172 483 191.0 468.5Q210 454 210 413Z" fill="#16171A"/><path d="M53 618Q53 652 76.5 675.0Q100 698 136 698Q173 698 196.0 675.0Q219 652 219 618Q219 585 196.0 561.0Q173 537 136 537Q100 537 76.5 561.0Q53 585 53 618Z" fill="#446732"/></g>
+    <g transform="translate(782,0) scale(1,-1)"><path d="M517 311V217H368V306Q368 343 346.5 360.5Q325 378 290 378Q265 378 244.0 371.5Q223 365 206 356V217H58V373Q58 398 68.5 414.5Q79 431 99 444Q131 466 181.0 480.5Q231 495 291 495Q399 495 458.0 447.5Q517 400 517 311ZM58 263H206V1Q196 -2 178.0 -4.5Q160 -7 139 -7Q97 -7 77.5 8.0Q58 23 58 62ZM368 263H517V1Q507 -2 489.0 -4.5Q471 -7 450 -7Q408 -7 388.0 8.0Q368 23 368 62Z" fill="#16171A"/></g>
+    <g transform="translate(1357,0) scale(1,-1)"><path d="M272 192 165 260 391 488Q436 487 463.5 467.0Q491 447 491 417Q491 391 473.0 370.5Q455 350 418 318ZM171 239 289 291 510 77Q506 37 486.0 14.5Q466 -8 429 -8Q402 -8 379.5 5.5Q357 19 332 50ZM60 265 208 262V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM208 185 60 188V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#16171A"/></g>
+    <g transform="translate(1896,0) scale(1,-1)"><path d="M519 204H370V293Q370 339 346.5 358.5Q323 378 287 378Q255 378 229.5 366.0Q204 354 186 339L182 459Q205 472 239.0 483.5Q273 495 314 495Q409 495 464.0 446.5Q519 398 519 301ZM60 264H208V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM370 264H519V1Q509 -2 491.0 -4.5Q473 -7 452 -7Q409 -7 389.5 8.0Q370 23 370 62ZM208 187H60V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#16171A"/></g>
+    <g transform="translate(2473,0) scale(1,-1)"><path d="M255 95Q278 95 300.5 99.5Q323 104 333 110V206L249 198Q215 196 195.0 184.0Q175 172 175 148Q175 124 194.0 109.5Q213 95 255 95ZM249 495Q353 495 415.0 451.5Q477 408 477 317V90Q477 65 464.0 49.5Q451 34 431 23Q401 5 356.5 -5.5Q312 -16 255 -16Q153 -16 92.5 24.0Q32 64 32 143Q32 211 74.0 247.5Q116 284 199 292L332 306V318Q332 352 305.5 367.0Q279 382 230 382Q192 382 155.5 373.0Q119 364 90 352Q78 360 69.5 376.5Q61 393 61 411Q61 453 107 472Q136 484 174.5 489.5Q213 495 249 495Z" fill="#16171A"/></g>
+    <g transform="translate(3006,0) scale(1,-1)"><path d="M58 187V259H206V188Q206 142 229.5 122.0Q253 102 296 102Q323 102 341.0 107.0Q359 112 368 117V259H517V99Q517 75 507.5 58.0Q498 41 477 28Q445 8 398.5 -3.5Q352 -15 295 -15Q224 -15 170.5 6.0Q117 27 87.5 71.5Q58 116 58 187ZM517 214H368V478Q378 481 396.0 484.0Q414 487 435 487Q478 487 497.5 472.5Q517 458 517 417ZM206 214H58V478Q67 481 85.0 484.0Q103 487 124 487Q167 487 186.5 472.5Q206 458 206 417Z" fill="#16171A"/></g>
+    <g transform="translate(3580,0) scale(1,-1)"><path d="M447 140Q447 67 392.0 25.5Q337 -16 232 -16Q150 -16 97.0 8.0Q44 32 44 79Q44 100 53.0 115.5Q62 131 76 140Q104 124 141.5 110.5Q179 97 227 97Q300 97 300 139Q300 157 287.0 167.5Q274 178 244 183L202 193Q122 210 82.5 245.5Q43 281 43 343Q43 413 99.5 454.5Q156 496 252 496Q300 496 339.5 486.5Q379 477 402.0 457.5Q425 438 425 409Q425 389 417.0 374.0Q409 359 396 349Q385 356 362.5 364.0Q340 372 313.5 377.0Q287 382 264 382Q228 382 208.0 372.5Q188 363 188 343Q188 330 199.5 320.5Q211 311 240 305L280 295Q369 275 408.0 237.5Q447 200 447 140Z" fill="#16171A"/></g>
+</svg></div><div class="cap"><b>Horizontal, light backgrounds (primary)</b><span>linkhaus-logo-horizontal-light-bg.svg</span></div></div>
+        <div class="tile"><div class="art dark"><svg role="img" aria-label="Linkhaus" xmlns="http://www.w3.org/2000/svg" viewBox="-1070.1 -880.9 5266.6 1145.8">
+  <g transform="translate(-1267.79,-870.32) scale(20.8267)"><path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#FFFFFF"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#93BF7D"/></g>
+  <g transform="translate(0,0) scale(1,-1)"><path d="M71 421H223V6L152 -2Q115 -2 93.0 20.0Q71 42 71 79ZM152 -2V122H466Q473 112 478.0 96.5Q483 81 483 62Q483 30 469.0 14.0Q455 -2 430 -2ZM223 231H71V608Q81 610 101.5 613.0Q122 616 141 616Q185 616 204.0 601.0Q223 586 223 544Z" fill="#FFFFFF"/></g>
+    <g transform="translate(510,0) scale(1,-1)"><path d="M62 264H210V1Q201 -2 183.0 -4.5Q165 -7 144 -7Q101 -7 81.5 8.0Q62 23 62 62Z M210 187H62V474Q71 477 89.5 480.0Q108 483 129 483Q172 483 191.0 468.5Q210 454 210 413Z" fill="#FFFFFF"/><path d="M53 618Q53 652 76.5 675.0Q100 698 136 698Q173 698 196.0 675.0Q219 652 219 618Q219 585 196.0 561.0Q173 537 136 537Q100 537 76.5 561.0Q53 585 53 618Z" fill="#93BF7D"/></g>
+    <g transform="translate(782,0) scale(1,-1)"><path d="M517 311V217H368V306Q368 343 346.5 360.5Q325 378 290 378Q265 378 244.0 371.5Q223 365 206 356V217H58V373Q58 398 68.5 414.5Q79 431 99 444Q131 466 181.0 480.5Q231 495 291 495Q399 495 458.0 447.5Q517 400 517 311ZM58 263H206V1Q196 -2 178.0 -4.5Q160 -7 139 -7Q97 -7 77.5 8.0Q58 23 58 62ZM368 263H517V1Q507 -2 489.0 -4.5Q471 -7 450 -7Q408 -7 388.0 8.0Q368 23 368 62Z" fill="#FFFFFF"/></g>
+    <g transform="translate(1357,0) scale(1,-1)"><path d="M272 192 165 260 391 488Q436 487 463.5 467.0Q491 447 491 417Q491 391 473.0 370.5Q455 350 418 318ZM171 239 289 291 510 77Q506 37 486.0 14.5Q466 -8 429 -8Q402 -8 379.5 5.5Q357 19 332 50ZM60 265 208 262V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM208 185 60 188V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#FFFFFF"/></g>
+    <g transform="translate(1896,0) scale(1,-1)"><path d="M519 204H370V293Q370 339 346.5 358.5Q323 378 287 378Q255 378 229.5 366.0Q204 354 186 339L182 459Q205 472 239.0 483.5Q273 495 314 495Q409 495 464.0 446.5Q519 398 519 301ZM60 264H208V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM370 264H519V1Q509 -2 491.0 -4.5Q473 -7 452 -7Q409 -7 389.5 8.0Q370 23 370 62ZM208 187H60V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#FFFFFF"/></g>
+    <g transform="translate(2473,0) scale(1,-1)"><path d="M255 95Q278 95 300.5 99.5Q323 104 333 110V206L249 198Q215 196 195.0 184.0Q175 172 175 148Q175 124 194.0 109.5Q213 95 255 95ZM249 495Q353 495 415.0 451.5Q477 408 477 317V90Q477 65 464.0 49.5Q451 34 431 23Q401 5 356.5 -5.5Q312 -16 255 -16Q153 -16 92.5 24.0Q32 64 32 143Q32 211 74.0 247.5Q116 284 199 292L332 306V318Q332 352 305.5 367.0Q279 382 230 382Q192 382 155.5 373.0Q119 364 90 352Q78 360 69.5 376.5Q61 393 61 411Q61 453 107 472Q136 484 174.5 489.5Q213 495 249 495Z" fill="#FFFFFF"/></g>
+    <g transform="translate(3006,0) scale(1,-1)"><path d="M58 187V259H206V188Q206 142 229.5 122.0Q253 102 296 102Q323 102 341.0 107.0Q359 112 368 117V259H517V99Q517 75 507.5 58.0Q498 41 477 28Q445 8 398.5 -3.5Q352 -15 295 -15Q224 -15 170.5 6.0Q117 27 87.5 71.5Q58 116 58 187ZM517 214H368V478Q378 481 396.0 484.0Q414 487 435 487Q478 487 497.5 472.5Q517 458 517 417ZM206 214H58V478Q67 481 85.0 484.0Q103 487 124 487Q167 487 186.5 472.5Q206 458 206 417Z" fill="#FFFFFF"/></g>
+    <g transform="translate(3580,0) scale(1,-1)"><path d="M447 140Q447 67 392.0 25.5Q337 -16 232 -16Q150 -16 97.0 8.0Q44 32 44 79Q44 100 53.0 115.5Q62 131 76 140Q104 124 141.5 110.5Q179 97 227 97Q300 97 300 139Q300 157 287.0 167.5Q274 178 244 183L202 193Q122 210 82.5 245.5Q43 281 43 343Q43 413 99.5 454.5Q156 496 252 496Q300 496 339.5 486.5Q379 477 402.0 457.5Q425 438 425 409Q425 389 417.0 374.0Q409 359 396 349Q385 356 362.5 364.0Q340 372 313.5 377.0Q287 382 264 382Q228 382 208.0 372.5Q188 363 188 343Q188 330 199.5 320.5Q211 311 240 305L280 295Q369 275 408.0 237.5Q447 200 447 140Z" fill="#FFFFFF"/></g>
+</svg></div><div class="cap"><b>Horizontal, dark backgrounds</b><span>linkhaus-logo-horizontal-dark-bg.svg</span></div></div>
+        <div class="tile"><div class="art light"><svg role="img" aria-label="Linkhaus" xmlns="http://www.w3.org/2000/svg" viewBox="-135.5 -1965.0 4332.0 2100.6">
+  <g transform="translate(1257.57,-1965.92) scale(22.7333)"><path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#16171A" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#16171A"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#446732"/></g>
+  <g transform="translate(0,0) scale(1,-1)"><path d="M71 421H223V6L152 -2Q115 -2 93.0 20.0Q71 42 71 79ZM152 -2V122H466Q473 112 478.0 96.5Q483 81 483 62Q483 30 469.0 14.0Q455 -2 430 -2ZM223 231H71V608Q81 610 101.5 613.0Q122 616 141 616Q185 616 204.0 601.0Q223 586 223 544Z" fill="#16171A"/></g>
+    <g transform="translate(510,0) scale(1,-1)"><path d="M62 264H210V1Q201 -2 183.0 -4.5Q165 -7 144 -7Q101 -7 81.5 8.0Q62 23 62 62Z M210 187H62V474Q71 477 89.5 480.0Q108 483 129 483Q172 483 191.0 468.5Q210 454 210 413Z" fill="#16171A"/><path d="M53 618Q53 652 76.5 675.0Q100 698 136 698Q173 698 196.0 675.0Q219 652 219 618Q219 585 196.0 561.0Q173 537 136 537Q100 537 76.5 561.0Q53 585 53 618Z" fill="#446732"/></g>
+    <g transform="translate(782,0) scale(1,-1)"><path d="M517 311V217H368V306Q368 343 346.5 360.5Q325 378 290 378Q265 378 244.0 371.5Q223 365 206 356V217H58V373Q58 398 68.5 414.5Q79 431 99 444Q131 466 181.0 480.5Q231 495 291 495Q399 495 458.0 447.5Q517 400 517 311ZM58 263H206V1Q196 -2 178.0 -4.5Q160 -7 139 -7Q97 -7 77.5 8.0Q58 23 58 62ZM368 263H517V1Q507 -2 489.0 -4.5Q471 -7 450 -7Q408 -7 388.0 8.0Q368 23 368 62Z" fill="#16171A"/></g>
+    <g transform="translate(1357,0) scale(1,-1)"><path d="M272 192 165 260 391 488Q436 487 463.5 467.0Q491 447 491 417Q491 391 473.0 370.5Q455 350 418 318ZM171 239 289 291 510 77Q506 37 486.0 14.5Q466 -8 429 -8Q402 -8 379.5 5.5Q357 19 332 50ZM60 265 208 262V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM208 185 60 188V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#16171A"/></g>
+    <g transform="translate(1896,0) scale(1,-1)"><path d="M519 204H370V293Q370 339 346.5 358.5Q323 378 287 378Q255 378 229.5 366.0Q204 354 186 339L182 459Q205 472 239.0 483.5Q273 495 314 495Q409 495 464.0 446.5Q519 398 519 301ZM60 264H208V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM370 264H519V1Q509 -2 491.0 -4.5Q473 -7 452 -7Q409 -7 389.5 8.0Q370 23 370 62ZM208 187H60V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#16171A"/></g>
+    <g transform="translate(2473,0) scale(1,-1)"><path d="M255 95Q278 95 300.5 99.5Q323 104 333 110V206L249 198Q215 196 195.0 184.0Q175 172 175 148Q175 124 194.0 109.5Q213 95 255 95ZM249 495Q353 495 415.0 451.5Q477 408 477 317V90Q477 65 464.0 49.5Q451 34 431 23Q401 5 356.5 -5.5Q312 -16 255 -16Q153 -16 92.5 24.0Q32 64 32 143Q32 211 74.0 247.5Q116 284 199 292L332 306V318Q332 352 305.5 367.0Q279 382 230 382Q192 382 155.5 373.0Q119 364 90 352Q78 360 69.5 376.5Q61 393 61 411Q61 453 107 472Q136 484 174.5 489.5Q213 495 249 495Z" fill="#16171A"/></g>
+    <g transform="translate(3006,0) scale(1,-1)"><path d="M58 187V259H206V188Q206 142 229.5 122.0Q253 102 296 102Q323 102 341.0 107.0Q359 112 368 117V259H517V99Q517 75 507.5 58.0Q498 41 477 28Q445 8 398.5 -3.5Q352 -15 295 -15Q224 -15 170.5 6.0Q117 27 87.5 71.5Q58 116 58 187ZM517 214H368V478Q378 481 396.0 484.0Q414 487 435 487Q478 487 497.5 472.5Q517 458 517 417ZM206 214H58V478Q67 481 85.0 484.0Q103 487 124 487Q167 487 186.5 472.5Q206 458 206 417Z" fill="#16171A"/></g>
+    <g transform="translate(3580,0) scale(1,-1)"><path d="M447 140Q447 67 392.0 25.5Q337 -16 232 -16Q150 -16 97.0 8.0Q44 32 44 79Q44 100 53.0 115.5Q62 131 76 140Q104 124 141.5 110.5Q179 97 227 97Q300 97 300 139Q300 157 287.0 167.5Q274 178 244 183L202 193Q122 210 82.5 245.5Q43 281 43 343Q43 413 99.5 454.5Q156 496 252 496Q300 496 339.5 486.5Q379 477 402.0 457.5Q425 438 425 409Q425 389 417.0 374.0Q409 359 396 349Q385 356 362.5 364.0Q340 372 313.5 377.0Q287 382 264 382Q228 382 208.0 372.5Q188 363 188 343Q188 330 199.5 320.5Q211 311 240 305L280 295Q369 275 408.0 237.5Q447 200 447 140Z" fill="#16171A"/></g>
+</svg></div><div class="cap"><b>Stacked, for square and tall spaces</b><span>linkhaus-logo-stacked-light-bg.svg</span></div></div>
+        <div class="tile"><div class="art dark"><svg role="img" aria-label="Linkhaus" xmlns="http://www.w3.org/2000/svg" viewBox="-135.5 -1965.0 4332.0 2100.6">
+  <g transform="translate(1257.57,-1965.92) scale(22.7333)"><path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#FFFFFF"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#93BF7D"/></g>
+  <g transform="translate(0,0) scale(1,-1)"><path d="M71 421H223V6L152 -2Q115 -2 93.0 20.0Q71 42 71 79ZM152 -2V122H466Q473 112 478.0 96.5Q483 81 483 62Q483 30 469.0 14.0Q455 -2 430 -2ZM223 231H71V608Q81 610 101.5 613.0Q122 616 141 616Q185 616 204.0 601.0Q223 586 223 544Z" fill="#FFFFFF"/></g>
+    <g transform="translate(510,0) scale(1,-1)"><path d="M62 264H210V1Q201 -2 183.0 -4.5Q165 -7 144 -7Q101 -7 81.5 8.0Q62 23 62 62Z M210 187H62V474Q71 477 89.5 480.0Q108 483 129 483Q172 483 191.0 468.5Q210 454 210 413Z" fill="#FFFFFF"/><path d="M53 618Q53 652 76.5 675.0Q100 698 136 698Q173 698 196.0 675.0Q219 652 219 618Q219 585 196.0 561.0Q173 537 136 537Q100 537 76.5 561.0Q53 585 53 618Z" fill="#93BF7D"/></g>
+    <g transform="translate(782,0) scale(1,-1)"><path d="M517 311V217H368V306Q368 343 346.5 360.5Q325 378 290 378Q265 378 244.0 371.5Q223 365 206 356V217H58V373Q58 398 68.5 414.5Q79 431 99 444Q131 466 181.0 480.5Q231 495 291 495Q399 495 458.0 447.5Q517 400 517 311ZM58 263H206V1Q196 -2 178.0 -4.5Q160 -7 139 -7Q97 -7 77.5 8.0Q58 23 58 62ZM368 263H517V1Q507 -2 489.0 -4.5Q471 -7 450 -7Q408 -7 388.0 8.0Q368 23 368 62Z" fill="#FFFFFF"/></g>
+    <g transform="translate(1357,0) scale(1,-1)"><path d="M272 192 165 260 391 488Q436 487 463.5 467.0Q491 447 491 417Q491 391 473.0 370.5Q455 350 418 318ZM171 239 289 291 510 77Q506 37 486.0 14.5Q466 -8 429 -8Q402 -8 379.5 5.5Q357 19 332 50ZM60 265 208 262V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM208 185 60 188V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#FFFFFF"/></g>
+    <g transform="translate(1896,0) scale(1,-1)"><path d="M519 204H370V293Q370 339 346.5 358.5Q323 378 287 378Q255 378 229.5 366.0Q204 354 186 339L182 459Q205 472 239.0 483.5Q273 495 314 495Q409 495 464.0 446.5Q519 398 519 301ZM60 264H208V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM370 264H519V1Q509 -2 491.0 -4.5Q473 -7 452 -7Q409 -7 389.5 8.0Q370 23 370 62ZM208 187H60V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#FFFFFF"/></g>
+    <g transform="translate(2473,0) scale(1,-1)"><path d="M255 95Q278 95 300.5 99.5Q323 104 333 110V206L249 198Q215 196 195.0 184.0Q175 172 175 148Q175 124 194.0 109.5Q213 95 255 95ZM249 495Q353 495 415.0 451.5Q477 408 477 317V90Q477 65 464.0 49.5Q451 34 431 23Q401 5 356.5 -5.5Q312 -16 255 -16Q153 -16 92.5 24.0Q32 64 32 143Q32 211 74.0 247.5Q116 284 199 292L332 306V318Q332 352 305.5 367.0Q279 382 230 382Q192 382 155.5 373.0Q119 364 90 352Q78 360 69.5 376.5Q61 393 61 411Q61 453 107 472Q136 484 174.5 489.5Q213 495 249 495Z" fill="#FFFFFF"/></g>
+    <g transform="translate(3006,0) scale(1,-1)"><path d="M58 187V259H206V188Q206 142 229.5 122.0Q253 102 296 102Q323 102 341.0 107.0Q359 112 368 117V259H517V99Q517 75 507.5 58.0Q498 41 477 28Q445 8 398.5 -3.5Q352 -15 295 -15Q224 -15 170.5 6.0Q117 27 87.5 71.5Q58 116 58 187ZM517 214H368V478Q378 481 396.0 484.0Q414 487 435 487Q478 487 497.5 472.5Q517 458 517 417ZM206 214H58V478Q67 481 85.0 484.0Q103 487 124 487Q167 487 186.5 472.5Q206 458 206 417Z" fill="#FFFFFF"/></g>
+    <g transform="translate(3580,0) scale(1,-1)"><path d="M447 140Q447 67 392.0 25.5Q337 -16 232 -16Q150 -16 97.0 8.0Q44 32 44 79Q44 100 53.0 115.5Q62 131 76 140Q104 124 141.5 110.5Q179 97 227 97Q300 97 300 139Q300 157 287.0 167.5Q274 178 244 183L202 193Q122 210 82.5 245.5Q43 281 43 343Q43 413 99.5 454.5Q156 496 252 496Q300 496 339.5 486.5Q379 477 402.0 457.5Q425 438 425 409Q425 389 417.0 374.0Q409 359 396 349Q385 356 362.5 364.0Q340 372 313.5 377.0Q287 382 264 382Q228 382 208.0 372.5Q188 363 188 343Q188 330 199.5 320.5Q211 311 240 305L280 295Q369 275 408.0 237.5Q447 200 447 140Z" fill="#FFFFFF"/></g>
+</svg></div><div class="cap"><b>Stacked, dark backgrounds</b><span>linkhaus-logo-stacked-dark-bg.svg</span></div></div>
+      </div>
+      <div class="grid g4">
+        <div class="tile"><div class="art light sq"><svg role="img" aria-label="Linkhaus icon" xmlns="http://www.w3.org/2000/svg" viewBox="10 0 48 54">
+    <path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#16171A" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#16171A"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#446732"/>
+</svg></div><div class="cap"><b>Icon</b><span>…icon-light-bg.svg</span></div></div>
+        <div class="tile"><div class="art dark sq"><svg role="img" aria-label="Linkhaus icon reversed" xmlns="http://www.w3.org/2000/svg" viewBox="10 0 48 54">
+    <path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#FFFFFF"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#93BF7D"/>
+</svg></div><div class="cap"><b>Icon, reversed</b><span>…icon-dark-bg.svg</span></div></div>
+        <div class="tile"><div class="art green sq"><svg role="img" aria-label="Linkhaus green tile" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112.6" fill="#446732"/>
+  <g transform="translate(0.00,16.00) scale(8.0000)">
+    <path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#FFFFFF"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#446732"/>
+  </g>
+</svg></div><div class="cap"><b>Green tile</b><span>profile pictures, app icon</span></div></div>
+        <div class="tile"><div class="art light"><svg role="img" aria-label="Linkhaus one colour" xmlns="http://www.w3.org/2000/svg" viewBox="-1070.1 -880.9 5266.6 1145.8">
+  <g transform="translate(-1267.79,-870.32) scale(20.8267)"><path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#16171A" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#16171A"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#16171A"/></g>
+  <g transform="translate(0,0) scale(1,-1)"><path d="M71 421H223V6L152 -2Q115 -2 93.0 20.0Q71 42 71 79ZM152 -2V122H466Q473 112 478.0 96.5Q483 81 483 62Q483 30 469.0 14.0Q455 -2 430 -2ZM223 231H71V608Q81 610 101.5 613.0Q122 616 141 616Q185 616 204.0 601.0Q223 586 223 544Z" fill="#16171A"/></g>
+    <g transform="translate(510,0) scale(1,-1)"><path d="M62 264H210V1Q201 -2 183.0 -4.5Q165 -7 144 -7Q101 -7 81.5 8.0Q62 23 62 62Z M210 187H62V474Q71 477 89.5 480.0Q108 483 129 483Q172 483 191.0 468.5Q210 454 210 413Z" fill="#16171A"/><path d="M53 618Q53 652 76.5 675.0Q100 698 136 698Q173 698 196.0 675.0Q219 652 219 618Q219 585 196.0 561.0Q173 537 136 537Q100 537 76.5 561.0Q53 585 53 618Z" fill="#16171A"/></g>
+    <g transform="translate(782,0) scale(1,-1)"><path d="M517 311V217H368V306Q368 343 346.5 360.5Q325 378 290 378Q265 378 244.0 371.5Q223 365 206 356V217H58V373Q58 398 68.5 414.5Q79 431 99 444Q131 466 181.0 480.5Q231 495 291 495Q399 495 458.0 447.5Q517 400 517 311ZM58 263H206V1Q196 -2 178.0 -4.5Q160 -7 139 -7Q97 -7 77.5 8.0Q58 23 58 62ZM368 263H517V1Q507 -2 489.0 -4.5Q471 -7 450 -7Q408 -7 388.0 8.0Q368 23 368 62Z" fill="#16171A"/></g>
+    <g transform="translate(1357,0) scale(1,-1)"><path d="M272 192 165 260 391 488Q436 487 463.5 467.0Q491 447 491 417Q491 391 473.0 370.5Q455 350 418 318ZM171 239 289 291 510 77Q506 37 486.0 14.5Q466 -8 429 -8Q402 -8 379.5 5.5Q357 19 332 50ZM60 265 208 262V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM208 185 60 188V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#16171A"/></g>
+    <g transform="translate(1896,0) scale(1,-1)"><path d="M519 204H370V293Q370 339 346.5 358.5Q323 378 287 378Q255 378 229.5 366.0Q204 354 186 339L182 459Q205 472 239.0 483.5Q273 495 314 495Q409 495 464.0 446.5Q519 398 519 301ZM60 264H208V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM370 264H519V1Q509 -2 491.0 -4.5Q473 -7 452 -7Q409 -7 389.5 8.0Q370 23 370 62ZM208 187H60V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#16171A"/></g>
+    <g transform="translate(2473,0) scale(1,-1)"><path d="M255 95Q278 95 300.5 99.5Q323 104 333 110V206L249 198Q215 196 195.0 184.0Q175 172 175 148Q175 124 194.0 109.5Q213 95 255 95ZM249 495Q353 495 415.0 451.5Q477 408 477 317V90Q477 65 464.0 49.5Q451 34 431 23Q401 5 356.5 -5.5Q312 -16 255 -16Q153 -16 92.5 24.0Q32 64 32 143Q32 211 74.0 247.5Q116 284 199 292L332 306V318Q332 352 305.5 367.0Q279 382 230 382Q192 382 155.5 373.0Q119 364 90 352Q78 360 69.5 376.5Q61 393 61 411Q61 453 107 472Q136 484 174.5 489.5Q213 495 249 495Z" fill="#16171A"/></g>
+    <g transform="translate(3006,0) scale(1,-1)"><path d="M58 187V259H206V188Q206 142 229.5 122.0Q253 102 296 102Q323 102 341.0 107.0Q359 112 368 117V259H517V99Q517 75 507.5 58.0Q498 41 477 28Q445 8 398.5 -3.5Q352 -15 295 -15Q224 -15 170.5 6.0Q117 27 87.5 71.5Q58 116 58 187ZM517 214H368V478Q378 481 396.0 484.0Q414 487 435 487Q478 487 497.5 472.5Q517 458 517 417ZM206 214H58V478Q67 481 85.0 484.0Q103 487 124 487Q167 487 186.5 472.5Q206 458 206 417Z" fill="#16171A"/></g>
+    <g transform="translate(3580,0) scale(1,-1)"><path d="M447 140Q447 67 392.0 25.5Q337 -16 232 -16Q150 -16 97.0 8.0Q44 32 44 79Q44 100 53.0 115.5Q62 131 76 140Q104 124 141.5 110.5Q179 97 227 97Q300 97 300 139Q300 157 287.0 167.5Q274 178 244 183L202 193Q122 210 82.5 245.5Q43 281 43 343Q43 413 99.5 454.5Q156 496 252 496Q300 496 339.5 486.5Q379 477 402.0 457.5Q425 438 425 409Q425 389 417.0 374.0Q409 359 396 349Q385 356 362.5 364.0Q340 372 313.5 377.0Q287 382 264 382Q228 382 208.0 372.5Q188 363 188 343Q188 330 199.5 320.5Q211 311 240 305L280 295Q369 275 408.0 237.5Q447 200 447 140Z" fill="#16171A"/></g>
+</svg></div><div class="cap"><b>One colour</b><span>engraving, stamps, one-spot print</span></div></div>
+      </div>
+      <p class="muted" style="font-size:.92rem;max-width:72ch">Use the horizontal lockup by default. Use the stacked lockup when the space is square or tall. Use the icon alone only when the name already appears nearby, or when space is under the minimum. The wordmark (name only) is for footers and letterhead details.</p>
+    </div>
+
+    <div class="block">
+      <h3>Clear space and minimum size</h3>
+      <div class="clear">
+        <div class="clear-box"><span class="x t">1 × ICON HEIGHT</span><span class="x l">1×</span><div class="inner"><svg role="img" aria-label="Linkhaus" xmlns="http://www.w3.org/2000/svg" viewBox="-1070.1 -880.9 5266.6 1145.8">
+  <g transform="translate(-1267.79,-870.32) scale(20.8267)"><path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#16171A" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#16171A"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#446732"/></g>
+  <g transform="translate(0,0) scale(1,-1)"><path d="M71 421H223V6L152 -2Q115 -2 93.0 20.0Q71 42 71 79ZM152 -2V122H466Q473 112 478.0 96.5Q483 81 483 62Q483 30 469.0 14.0Q455 -2 430 -2ZM223 231H71V608Q81 610 101.5 613.0Q122 616 141 616Q185 616 204.0 601.0Q223 586 223 544Z" fill="#16171A"/></g>
+    <g transform="translate(510,0) scale(1,-1)"><path d="M62 264H210V1Q201 -2 183.0 -4.5Q165 -7 144 -7Q101 -7 81.5 8.0Q62 23 62 62Z M210 187H62V474Q71 477 89.5 480.0Q108 483 129 483Q172 483 191.0 468.5Q210 454 210 413Z" fill="#16171A"/><path d="M53 618Q53 652 76.5 675.0Q100 698 136 698Q173 698 196.0 675.0Q219 652 219 618Q219 585 196.0 561.0Q173 537 136 537Q100 537 76.5 561.0Q53 585 53 618Z" fill="#446732"/></g>
+    <g transform="translate(782,0) scale(1,-1)"><path d="M517 311V217H368V306Q368 343 346.5 360.5Q325 378 290 378Q265 378 244.0 371.5Q223 365 206 356V217H58V373Q58 398 68.5 414.5Q79 431 99 444Q131 466 181.0 480.5Q231 495 291 495Q399 495 458.0 447.5Q517 400 517 311ZM58 263H206V1Q196 -2 178.0 -4.5Q160 -7 139 -7Q97 -7 77.5 8.0Q58 23 58 62ZM368 263H517V1Q507 -2 489.0 -4.5Q471 -7 450 -7Q408 -7 388.0 8.0Q368 23 368 62Z" fill="#16171A"/></g>
+    <g transform="translate(1357,0) scale(1,-1)"><path d="M272 192 165 260 391 488Q436 487 463.5 467.0Q491 447 491 417Q491 391 473.0 370.5Q455 350 418 318ZM171 239 289 291 510 77Q506 37 486.0 14.5Q466 -8 429 -8Q402 -8 379.5 5.5Q357 19 332 50ZM60 265 208 262V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM208 185 60 188V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#16171A"/></g>
+    <g transform="translate(1896,0) scale(1,-1)"><path d="M519 204H370V293Q370 339 346.5 358.5Q323 378 287 378Q255 378 229.5 366.0Q204 354 186 339L182 459Q205 472 239.0 483.5Q273 495 314 495Q409 495 464.0 446.5Q519 398 519 301ZM60 264H208V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM370 264H519V1Q509 -2 491.0 -4.5Q473 -7 452 -7Q409 -7 389.5 8.0Q370 23 370 62ZM208 187H60V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#16171A"/></g>
+    <g transform="translate(2473,0) scale(1,-1)"><path d="M255 95Q278 95 300.5 99.5Q323 104 333 110V206L249 198Q215 196 195.0 184.0Q175 172 175 148Q175 124 194.0 109.5Q213 95 255 95ZM249 495Q353 495 415.0 451.5Q477 408 477 317V90Q477 65 464.0 49.5Q451 34 431 23Q401 5 356.5 -5.5Q312 -16 255 -16Q153 -16 92.5 24.0Q32 64 32 143Q32 211 74.0 247.5Q116 284 199 292L332 306V318Q332 352 305.5 367.0Q279 382 230 382Q192 382 155.5 373.0Q119 364 90 352Q78 360 69.5 376.5Q61 393 61 411Q61 453 107 472Q136 484 174.5 489.5Q213 495 249 495Z" fill="#16171A"/></g>
+    <g transform="translate(3006,0) scale(1,-1)"><path d="M58 187V259H206V188Q206 142 229.5 122.0Q253 102 296 102Q323 102 341.0 107.0Q359 112 368 117V259H517V99Q517 75 507.5 58.0Q498 41 477 28Q445 8 398.5 -3.5Q352 -15 295 -15Q224 -15 170.5 6.0Q117 27 87.5 71.5Q58 116 58 187ZM517 214H368V478Q378 481 396.0 484.0Q414 487 435 487Q478 487 497.5 472.5Q517 458 517 417ZM206 214H58V478Q67 481 85.0 484.0Q103 487 124 487Q167 487 186.5 472.5Q206 458 206 417Z" fill="#16171A"/></g>
+    <g transform="translate(3580,0) scale(1,-1)"><path d="M447 140Q447 67 392.0 25.5Q337 -16 232 -16Q150 -16 97.0 8.0Q44 32 44 79Q44 100 53.0 115.5Q62 131 76 140Q104 124 141.5 110.5Q179 97 227 97Q300 97 300 139Q300 157 287.0 167.5Q274 178 244 183L202 193Q122 210 82.5 245.5Q43 281 43 343Q43 413 99.5 454.5Q156 496 252 496Q300 496 339.5 486.5Q379 477 402.0 457.5Q425 438 425 409Q425 389 417.0 374.0Q409 359 396 349Q385 356 362.5 364.0Q340 372 313.5 377.0Q287 382 264 382Q228 382 208.0 372.5Q188 363 188 343Q188 330 199.5 320.5Q211 311 240 305L280 295Q369 275 408.0 237.5Q447 200 447 140Z" fill="#16171A"/></g>
+</svg></div></div>
+      </div>
+      <div class="grid g3">
+        <div class="card"><span class="label">Clear space</span><h4>1 × icon height</h4><p>On every side. Nothing enters it: text, edges or other logos.</p></div>
+        <div class="card"><span class="label">Lockup minimum</span><h4>120 px · 25 mm</h4><p>Below this, switch to the icon. Never shrink the lockup further.</p></div>
+        <div class="card"><span class="label">Icon minimum</span><h4>16 px · 6 mm</h4><p>At favicon size, use the version on the ink tile so it reads in light browser tabs.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Don't</h3>
+      <div class="dont">
+        <div class="tile"><div class="art light"><svg role="img" aria-label="Linkhaus" xmlns="http://www.w3.org/2000/svg" viewBox="-1070.1 -880.9 5266.6 1145.8">
+  <g transform="translate(-1267.79,-870.32) scale(20.8267)"><path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#3B6FD4" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#3B6FD4"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#E0A21B"/></g>
+  <g transform="translate(0,0) scale(1,-1)"><path d="M71 421H223V6L152 -2Q115 -2 93.0 20.0Q71 42 71 79ZM152 -2V122H466Q473 112 478.0 96.5Q483 81 483 62Q483 30 469.0 14.0Q455 -2 430 -2ZM223 231H71V608Q81 610 101.5 613.0Q122 616 141 616Q185 616 204.0 601.0Q223 586 223 544Z" fill="#3B6FD4"/></g>
+    <g transform="translate(510,0) scale(1,-1)"><path d="M62 264H210V1Q201 -2 183.0 -4.5Q165 -7 144 -7Q101 -7 81.5 8.0Q62 23 62 62Z M210 187H62V474Q71 477 89.5 480.0Q108 483 129 483Q172 483 191.0 468.5Q210 454 210 413Z" fill="#3B6FD4"/><path d="M53 618Q53 652 76.5 675.0Q100 698 136 698Q173 698 196.0 675.0Q219 652 219 618Q219 585 196.0 561.0Q173 537 136 537Q100 537 76.5 561.0Q53 585 53 618Z" fill="#E0A21B"/></g>
+    <g transform="translate(782,0) scale(1,-1)"><path d="M517 311V217H368V306Q368 343 346.5 360.5Q325 378 290 378Q265 378 244.0 371.5Q223 365 206 356V217H58V373Q58 398 68.5 414.5Q79 431 99 444Q131 466 181.0 480.5Q231 495 291 495Q399 495 458.0 447.5Q517 400 517 311ZM58 263H206V1Q196 -2 178.0 -4.5Q160 -7 139 -7Q97 -7 77.5 8.0Q58 23 58 62ZM368 263H517V1Q507 -2 489.0 -4.5Q471 -7 450 -7Q408 -7 388.0 8.0Q368 23 368 62Z" fill="#3B6FD4"/></g>
+    <g transform="translate(1357,0) scale(1,-1)"><path d="M272 192 165 260 391 488Q436 487 463.5 467.0Q491 447 491 417Q491 391 473.0 370.5Q455 350 418 318ZM171 239 289 291 510 77Q506 37 486.0 14.5Q466 -8 429 -8Q402 -8 379.5 5.5Q357 19 332 50ZM60 265 208 262V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM208 185 60 188V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#3B6FD4"/></g>
+    <g transform="translate(1896,0) scale(1,-1)"><path d="M519 204H370V293Q370 339 346.5 358.5Q323 378 287 378Q255 378 229.5 366.0Q204 354 186 339L182 459Q205 472 239.0 483.5Q273 495 314 495Q409 495 464.0 446.5Q519 398 519 301ZM60 264H208V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM370 264H519V1Q509 -2 491.0 -4.5Q473 -7 452 -7Q409 -7 389.5 8.0Q370 23 370 62ZM208 187H60V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#3B6FD4"/></g>
+    <g transform="translate(2473,0) scale(1,-1)"><path d="M255 95Q278 95 300.5 99.5Q323 104 333 110V206L249 198Q215 196 195.0 184.0Q175 172 175 148Q175 124 194.0 109.5Q213 95 255 95ZM249 495Q353 495 415.0 451.5Q477 408 477 317V90Q477 65 464.0 49.5Q451 34 431 23Q401 5 356.5 -5.5Q312 -16 255 -16Q153 -16 92.5 24.0Q32 64 32 143Q32 211 74.0 247.5Q116 284 199 292L332 306V318Q332 352 305.5 367.0Q279 382 230 382Q192 382 155.5 373.0Q119 364 90 352Q78 360 69.5 376.5Q61 393 61 411Q61 453 107 472Q136 484 174.5 489.5Q213 495 249 495Z" fill="#3B6FD4"/></g>
+    <g transform="translate(3006,0) scale(1,-1)"><path d="M58 187V259H206V188Q206 142 229.5 122.0Q253 102 296 102Q323 102 341.0 107.0Q359 112 368 117V259H517V99Q517 75 507.5 58.0Q498 41 477 28Q445 8 398.5 -3.5Q352 -15 295 -15Q224 -15 170.5 6.0Q117 27 87.5 71.5Q58 116 58 187ZM517 214H368V478Q378 481 396.0 484.0Q414 487 435 487Q478 487 497.5 472.5Q517 458 517 417ZM206 214H58V478Q67 481 85.0 484.0Q103 487 124 487Q167 487 186.5 472.5Q206 458 206 417Z" fill="#3B6FD4"/></g>
+    <g transform="translate(3580,0) scale(1,-1)"><path d="M447 140Q447 67 392.0 25.5Q337 -16 232 -16Q150 -16 97.0 8.0Q44 32 44 79Q44 100 53.0 115.5Q62 131 76 140Q104 124 141.5 110.5Q179 97 227 97Q300 97 300 139Q300 157 287.0 167.5Q274 178 244 183L202 193Q122 210 82.5 245.5Q43 281 43 343Q43 413 99.5 454.5Q156 496 252 496Q300 496 339.5 486.5Q379 477 402.0 457.5Q425 438 425 409Q425 389 417.0 374.0Q409 359 396 349Q385 356 362.5 364.0Q340 372 313.5 377.0Q287 382 264 382Q228 382 208.0 372.5Q188 363 188 343Q188 330 199.5 320.5Q211 311 240 305L280 295Q369 275 408.0 237.5Q447 200 447 140Z" fill="#3B6FD4"/></g>
+</svg></div><div class="cap"><b>Recolour the mark</b><span>outside ink, white and the window</span></div></div>
+        <div class="tile"><div class="art light" style="overflow:hidden"><div style="transform:scaleX(1.45);width:70%"><svg role="img" aria-label="Linkhaus" xmlns="http://www.w3.org/2000/svg" viewBox="-1070.1 -880.9 5266.6 1145.8">
+  <g transform="translate(-1267.79,-870.32) scale(20.8267)"><path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#16171A" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#16171A"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#446732"/></g>
+  <g transform="translate(0,0) scale(1,-1)"><path d="M71 421H223V6L152 -2Q115 -2 93.0 20.0Q71 42 71 79ZM152 -2V122H466Q473 112 478.0 96.5Q483 81 483 62Q483 30 469.0 14.0Q455 -2 430 -2ZM223 231H71V608Q81 610 101.5 613.0Q122 616 141 616Q185 616 204.0 601.0Q223 586 223 544Z" fill="#16171A"/></g>
+    <g transform="translate(510,0) scale(1,-1)"><path d="M62 264H210V1Q201 -2 183.0 -4.5Q165 -7 144 -7Q101 -7 81.5 8.0Q62 23 62 62Z M210 187H62V474Q71 477 89.5 480.0Q108 483 129 483Q172 483 191.0 468.5Q210 454 210 413Z" fill="#16171A"/><path d="M53 618Q53 652 76.5 675.0Q100 698 136 698Q173 698 196.0 675.0Q219 652 219 618Q219 585 196.0 561.0Q173 537 136 537Q100 537 76.5 561.0Q53 585 53 618Z" fill="#446732"/></g>
+    <g transform="translate(782,0) scale(1,-1)"><path d="M517 311V217H368V306Q368 343 346.5 360.5Q325 378 290 378Q265 378 244.0 371.5Q223 365 206 356V217H58V373Q58 398 68.5 414.5Q79 431 99 444Q131 466 181.0 480.5Q231 495 291 495Q399 495 458.0 447.5Q517 400 517 311ZM58 263H206V1Q196 -2 178.0 -4.5Q160 -7 139 -7Q97 -7 77.5 8.0Q58 23 58 62ZM368 263H517V1Q507 -2 489.0 -4.5Q471 -7 450 -7Q408 -7 388.0 8.0Q368 23 368 62Z" fill="#16171A"/></g>
+    <g transform="translate(1357,0) scale(1,-1)"><path d="M272 192 165 260 391 488Q436 487 463.5 467.0Q491 447 491 417Q491 391 473.0 370.5Q455 350 418 318ZM171 239 289 291 510 77Q506 37 486.0 14.5Q466 -8 429 -8Q402 -8 379.5 5.5Q357 19 332 50ZM60 265 208 262V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM208 185 60 188V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#16171A"/></g>
+    <g transform="translate(1896,0) scale(1,-1)"><path d="M519 204H370V293Q370 339 346.5 358.5Q323 378 287 378Q255 378 229.5 366.0Q204 354 186 339L182 459Q205 472 239.0 483.5Q273 495 314 495Q409 495 464.0 446.5Q519 398 519 301ZM60 264H208V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM370 264H519V1Q509 -2 491.0 -4.5Q473 -7 452 -7Q409 -7 389.5 8.0Q370 23 370 62ZM208 187H60V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#16171A"/></g>
+    <g transform="translate(2473,0) scale(1,-1)"><path d="M255 95Q278 95 300.5 99.5Q323 104 333 110V206L249 198Q215 196 195.0 184.0Q175 172 175 148Q175 124 194.0 109.5Q213 95 255 95ZM249 495Q353 495 415.0 451.5Q477 408 477 317V90Q477 65 464.0 49.5Q451 34 431 23Q401 5 356.5 -5.5Q312 -16 255 -16Q153 -16 92.5 24.0Q32 64 32 143Q32 211 74.0 247.5Q116 284 199 292L332 306V318Q332 352 305.5 367.0Q279 382 230 382Q192 382 155.5 373.0Q119 364 90 352Q78 360 69.5 376.5Q61 393 61 411Q61 453 107 472Q136 484 174.5 489.5Q213 495 249 495Z" fill="#16171A"/></g>
+    <g transform="translate(3006,0) scale(1,-1)"><path d="M58 187V259H206V188Q206 142 229.5 122.0Q253 102 296 102Q323 102 341.0 107.0Q359 112 368 117V259H517V99Q517 75 507.5 58.0Q498 41 477 28Q445 8 398.5 -3.5Q352 -15 295 -15Q224 -15 170.5 6.0Q117 27 87.5 71.5Q58 116 58 187ZM517 214H368V478Q378 481 396.0 484.0Q414 487 435 487Q478 487 497.5 472.5Q517 458 517 417ZM206 214H58V478Q67 481 85.0 484.0Q103 487 124 487Q167 487 186.5 472.5Q206 458 206 417Z" fill="#16171A"/></g>
+    <g transform="translate(3580,0) scale(1,-1)"><path d="M447 140Q447 67 392.0 25.5Q337 -16 232 -16Q150 -16 97.0 8.0Q44 32 44 79Q44 100 53.0 115.5Q62 131 76 140Q104 124 141.5 110.5Q179 97 227 97Q300 97 300 139Q300 157 287.0 167.5Q274 178 244 183L202 193Q122 210 82.5 245.5Q43 281 43 343Q43 413 99.5 454.5Q156 496 252 496Q300 496 339.5 486.5Q379 477 402.0 457.5Q425 438 425 409Q425 389 417.0 374.0Q409 359 396 349Q385 356 362.5 364.0Q340 372 313.5 377.0Q287 382 264 382Q228 382 208.0 372.5Q188 363 188 343Q188 330 199.5 320.5Q211 311 240 305L280 295Q369 275 408.0 237.5Q447 200 447 140Z" fill="#16171A"/></g>
+</svg></div></div><div class="cap"><b>Stretch or skew it</b><span>scale proportionally only</span></div></div>
+        <div class="tile"><div class="art green"><svg role="img" aria-label="Linkhaus" xmlns="http://www.w3.org/2000/svg" viewBox="-1070.1 -880.9 5266.6 1145.8">
+  <g transform="translate(-1267.79,-870.32) scale(20.8267)"><path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#16171A" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#16171A"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#446732"/></g>
+  <g transform="translate(0,0) scale(1,-1)"><path d="M71 421H223V6L152 -2Q115 -2 93.0 20.0Q71 42 71 79ZM152 -2V122H466Q473 112 478.0 96.5Q483 81 483 62Q483 30 469.0 14.0Q455 -2 430 -2ZM223 231H71V608Q81 610 101.5 613.0Q122 616 141 616Q185 616 204.0 601.0Q223 586 223 544Z" fill="#16171A"/></g>
+    <g transform="translate(510,0) scale(1,-1)"><path d="M62 264H210V1Q201 -2 183.0 -4.5Q165 -7 144 -7Q101 -7 81.5 8.0Q62 23 62 62Z M210 187H62V474Q71 477 89.5 480.0Q108 483 129 483Q172 483 191.0 468.5Q210 454 210 413Z" fill="#16171A"/><path d="M53 618Q53 652 76.5 675.0Q100 698 136 698Q173 698 196.0 675.0Q219 652 219 618Q219 585 196.0 561.0Q173 537 136 537Q100 537 76.5 561.0Q53 585 53 618Z" fill="#446732"/></g>
+    <g transform="translate(782,0) scale(1,-1)"><path d="M517 311V217H368V306Q368 343 346.5 360.5Q325 378 290 378Q265 378 244.0 371.5Q223 365 206 356V217H58V373Q58 398 68.5 414.5Q79 431 99 444Q131 466 181.0 480.5Q231 495 291 495Q399 495 458.0 447.5Q517 400 517 311ZM58 263H206V1Q196 -2 178.0 -4.5Q160 -7 139 -7Q97 -7 77.5 8.0Q58 23 58 62ZM368 263H517V1Q507 -2 489.0 -4.5Q471 -7 450 -7Q408 -7 388.0 8.0Q368 23 368 62Z" fill="#16171A"/></g>
+    <g transform="translate(1357,0) scale(1,-1)"><path d="M272 192 165 260 391 488Q436 487 463.5 467.0Q491 447 491 417Q491 391 473.0 370.5Q455 350 418 318ZM171 239 289 291 510 77Q506 37 486.0 14.5Q466 -8 429 -8Q402 -8 379.5 5.5Q357 19 332 50ZM60 265 208 262V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM208 185 60 188V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#16171A"/></g>
+    <g transform="translate(1896,0) scale(1,-1)"><path d="M519 204H370V293Q370 339 346.5 358.5Q323 378 287 378Q255 378 229.5 366.0Q204 354 186 339L182 459Q205 472 239.0 483.5Q273 495 314 495Q409 495 464.0 446.5Q519 398 519 301ZM60 264H208V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM370 264H519V1Q509 -2 491.0 -4.5Q473 -7 452 -7Q409 -7 389.5 8.0Q370 23 370 62ZM208 187H60V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#16171A"/></g>
+    <g transform="translate(2473,0) scale(1,-1)"><path d="M255 95Q278 95 300.5 99.5Q323 104 333 110V206L249 198Q215 196 195.0 184.0Q175 172 175 148Q175 124 194.0 109.5Q213 95 255 95ZM249 495Q353 495 415.0 451.5Q477 408 477 317V90Q477 65 464.0 49.5Q451 34 431 23Q401 5 356.5 -5.5Q312 -16 255 -16Q153 -16 92.5 24.0Q32 64 32 143Q32 211 74.0 247.5Q116 284 199 292L332 306V318Q332 352 305.5 367.0Q279 382 230 382Q192 382 155.5 373.0Q119 364 90 352Q78 360 69.5 376.5Q61 393 61 411Q61 453 107 472Q136 484 174.5 489.5Q213 495 249 495Z" fill="#16171A"/></g>
+    <g transform="translate(3006,0) scale(1,-1)"><path d="M58 187V259H206V188Q206 142 229.5 122.0Q253 102 296 102Q323 102 341.0 107.0Q359 112 368 117V259H517V99Q517 75 507.5 58.0Q498 41 477 28Q445 8 398.5 -3.5Q352 -15 295 -15Q224 -15 170.5 6.0Q117 27 87.5 71.5Q58 116 58 187ZM517 214H368V478Q378 481 396.0 484.0Q414 487 435 487Q478 487 497.5 472.5Q517 458 517 417ZM206 214H58V478Q67 481 85.0 484.0Q103 487 124 487Q167 487 186.5 472.5Q206 458 206 417Z" fill="#16171A"/></g>
+    <g transform="translate(3580,0) scale(1,-1)"><path d="M447 140Q447 67 392.0 25.5Q337 -16 232 -16Q150 -16 97.0 8.0Q44 32 44 79Q44 100 53.0 115.5Q62 131 76 140Q104 124 141.5 110.5Q179 97 227 97Q300 97 300 139Q300 157 287.0 167.5Q274 178 244 183L202 193Q122 210 82.5 245.5Q43 281 43 343Q43 413 99.5 454.5Q156 496 252 496Q300 496 339.5 486.5Q379 477 402.0 457.5Q425 438 425 409Q425 389 417.0 374.0Q409 359 396 349Q385 356 362.5 364.0Q340 372 313.5 377.0Q287 382 264 382Q228 382 208.0 372.5Q188 363 188 343Q188 330 199.5 320.5Q211 311 240 305L280 295Q369 275 408.0 237.5Q447 200 447 140Z" fill="#16171A"/></g>
+</svg></div><div class="cap"><b>Put the ink version on colour</b><span>use the white version on dark or green</span></div></div>
+        <div class="tile"><div class="art light"><div style="filter:drop-shadow(4px 6px 4px rgba(0,0,0,.45));width:100%"><svg role="img" aria-label="Linkhaus" xmlns="http://www.w3.org/2000/svg" viewBox="-1070.1 -880.9 5266.6 1145.8">
+  <g transform="translate(-1267.79,-870.32) scale(20.8267)"><path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#16171A" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#16171A"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#446732"/></g>
+  <g transform="translate(0,0) scale(1,-1)"><path d="M71 421H223V6L152 -2Q115 -2 93.0 20.0Q71 42 71 79ZM152 -2V122H466Q473 112 478.0 96.5Q483 81 483 62Q483 30 469.0 14.0Q455 -2 430 -2ZM223 231H71V608Q81 610 101.5 613.0Q122 616 141 616Q185 616 204.0 601.0Q223 586 223 544Z" fill="#16171A"/></g>
+    <g transform="translate(510,0) scale(1,-1)"><path d="M62 264H210V1Q201 -2 183.0 -4.5Q165 -7 144 -7Q101 -7 81.5 8.0Q62 23 62 62Z M210 187H62V474Q71 477 89.5 480.0Q108 483 129 483Q172 483 191.0 468.5Q210 454 210 413Z" fill="#16171A"/><path d="M53 618Q53 652 76.5 675.0Q100 698 136 698Q173 698 196.0 675.0Q219 652 219 618Q219 585 196.0 561.0Q173 537 136 537Q100 537 76.5 561.0Q53 585 53 618Z" fill="#446732"/></g>
+    <g transform="translate(782,0) scale(1,-1)"><path d="M517 311V217H368V306Q368 343 346.5 360.5Q325 378 290 378Q265 378 244.0 371.5Q223 365 206 356V217H58V373Q58 398 68.5 414.5Q79 431 99 444Q131 466 181.0 480.5Q231 495 291 495Q399 495 458.0 447.5Q517 400 517 311ZM58 263H206V1Q196 -2 178.0 -4.5Q160 -7 139 -7Q97 -7 77.5 8.0Q58 23 58 62ZM368 263H517V1Q507 -2 489.0 -4.5Q471 -7 450 -7Q408 -7 388.0 8.0Q368 23 368 62Z" fill="#16171A"/></g>
+    <g transform="translate(1357,0) scale(1,-1)"><path d="M272 192 165 260 391 488Q436 487 463.5 467.0Q491 447 491 417Q491 391 473.0 370.5Q455 350 418 318ZM171 239 289 291 510 77Q506 37 486.0 14.5Q466 -8 429 -8Q402 -8 379.5 5.5Q357 19 332 50ZM60 265 208 262V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM208 185 60 188V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#16171A"/></g>
+    <g transform="translate(1896,0) scale(1,-1)"><path d="M519 204H370V293Q370 339 346.5 358.5Q323 378 287 378Q255 378 229.5 366.0Q204 354 186 339L182 459Q205 472 239.0 483.5Q273 495 314 495Q409 495 464.0 446.5Q519 398 519 301ZM60 264H208V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM370 264H519V1Q509 -2 491.0 -4.5Q473 -7 452 -7Q409 -7 389.5 8.0Q370 23 370 62ZM208 187H60V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#16171A"/></g>
+    <g transform="translate(2473,0) scale(1,-1)"><path d="M255 95Q278 95 300.5 99.5Q323 104 333 110V206L249 198Q215 196 195.0 184.0Q175 172 175 148Q175 124 194.0 109.5Q213 95 255 95ZM249 495Q353 495 415.0 451.5Q477 408 477 317V90Q477 65 464.0 49.5Q451 34 431 23Q401 5 356.5 -5.5Q312 -16 255 -16Q153 -16 92.5 24.0Q32 64 32 143Q32 211 74.0 247.5Q116 284 199 292L332 306V318Q332 352 305.5 367.0Q279 382 230 382Q192 382 155.5 373.0Q119 364 90 352Q78 360 69.5 376.5Q61 393 61 411Q61 453 107 472Q136 484 174.5 489.5Q213 495 249 495Z" fill="#16171A"/></g>
+    <g transform="translate(3006,0) scale(1,-1)"><path d="M58 187V259H206V188Q206 142 229.5 122.0Q253 102 296 102Q323 102 341.0 107.0Q359 112 368 117V259H517V99Q517 75 507.5 58.0Q498 41 477 28Q445 8 398.5 -3.5Q352 -15 295 -15Q224 -15 170.5 6.0Q117 27 87.5 71.5Q58 116 58 187ZM517 214H368V478Q378 481 396.0 484.0Q414 487 435 487Q478 487 497.5 472.5Q517 458 517 417ZM206 214H58V478Q67 481 85.0 484.0Q103 487 124 487Q167 487 186.5 472.5Q206 458 206 417Z" fill="#16171A"/></g>
+    <g transform="translate(3580,0) scale(1,-1)"><path d="M447 140Q447 67 392.0 25.5Q337 -16 232 -16Q150 -16 97.0 8.0Q44 32 44 79Q44 100 53.0 115.5Q62 131 76 140Q104 124 141.5 110.5Q179 97 227 97Q300 97 300 139Q300 157 287.0 167.5Q274 178 244 183L202 193Q122 210 82.5 245.5Q43 281 43 343Q43 413 99.5 454.5Q156 496 252 496Q300 496 339.5 486.5Q379 477 402.0 457.5Q425 438 425 409Q425 389 417.0 374.0Q409 359 396 349Q385 356 362.5 364.0Q340 372 313.5 377.0Q287 382 264 382Q228 382 208.0 372.5Q188 363 188 343Q188 330 199.5 320.5Q211 311 240 305L280 295Q369 275 408.0 237.5Q447 200 447 140Z" fill="#16171A"/></g>
+</svg></div></div><div class="cap"><b>Add shadows or effects</b><span>no glows, outlines, bevels</span></div></div>
+        <div class="tile"><div class="art light sq"><svg role="img" aria-label="Linkhaus icon" xmlns="http://www.w3.org/2000/svg" viewBox="10 0 48 54">
+    <path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#16171A" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#16171A"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#446732"/>
+<rect x="25.5" y="30" width="7" height="7" fill="#446732"/></svg></div><div class="cap"><b>Move or add a window</b><span>one window, in the chimney</span></div></div>
+        <div class="tile"><div class="art tint"><svg role="img" aria-label="Linkhaus" xmlns="http://www.w3.org/2000/svg" viewBox="-1070.1 -880.9 5266.6 1145.8">
+  <g transform="translate(-1267.79,-870.32) scale(20.8267)"><path d="M46,48 L22,48 L22,24 L32,11 L42,24 L42,36" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linejoin="miter" stroke-linecap="butt"/>
+    <circle cx="46" cy="48" r="4.5" fill="#FFFFFF"/>
+    <rect x="38.5" y="26.5" width="7" height="7" fill="#93BF7D"/></g>
+  <g transform="translate(0,0) scale(1,-1)"><path d="M71 421H223V6L152 -2Q115 -2 93.0 20.0Q71 42 71 79ZM152 -2V122H466Q473 112 478.0 96.5Q483 81 483 62Q483 30 469.0 14.0Q455 -2 430 -2ZM223 231H71V608Q81 610 101.5 613.0Q122 616 141 616Q185 616 204.0 601.0Q223 586 223 544Z" fill="#FFFFFF"/></g>
+    <g transform="translate(510,0) scale(1,-1)"><path d="M62 264H210V1Q201 -2 183.0 -4.5Q165 -7 144 -7Q101 -7 81.5 8.0Q62 23 62 62Z M210 187H62V474Q71 477 89.5 480.0Q108 483 129 483Q172 483 191.0 468.5Q210 454 210 413Z" fill="#FFFFFF"/><path d="M53 618Q53 652 76.5 675.0Q100 698 136 698Q173 698 196.0 675.0Q219 652 219 618Q219 585 196.0 561.0Q173 537 136 537Q100 537 76.5 561.0Q53 585 53 618Z" fill="#93BF7D"/></g>
+    <g transform="translate(782,0) scale(1,-1)"><path d="M517 311V217H368V306Q368 343 346.5 360.5Q325 378 290 378Q265 378 244.0 371.5Q223 365 206 356V217H58V373Q58 398 68.5 414.5Q79 431 99 444Q131 466 181.0 480.5Q231 495 291 495Q399 495 458.0 447.5Q517 400 517 311ZM58 263H206V1Q196 -2 178.0 -4.5Q160 -7 139 -7Q97 -7 77.5 8.0Q58 23 58 62ZM368 263H517V1Q507 -2 489.0 -4.5Q471 -7 450 -7Q408 -7 388.0 8.0Q368 23 368 62Z" fill="#FFFFFF"/></g>
+    <g transform="translate(1357,0) scale(1,-1)"><path d="M272 192 165 260 391 488Q436 487 463.5 467.0Q491 447 491 417Q491 391 473.0 370.5Q455 350 418 318ZM171 239 289 291 510 77Q506 37 486.0 14.5Q466 -8 429 -8Q402 -8 379.5 5.5Q357 19 332 50ZM60 265 208 262V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM208 185 60 188V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#FFFFFF"/></g>
+    <g transform="translate(1896,0) scale(1,-1)"><path d="M519 204H370V293Q370 339 346.5 358.5Q323 378 287 378Q255 378 229.5 366.0Q204 354 186 339L182 459Q205 472 239.0 483.5Q273 495 314 495Q409 495 464.0 446.5Q519 398 519 301ZM60 264H208V1Q198 -2 180.0 -4.5Q162 -7 141 -7Q99 -7 79.5 8.0Q60 23 60 62ZM370 264H519V1Q509 -2 491.0 -4.5Q473 -7 452 -7Q409 -7 389.5 8.0Q370 23 370 62ZM208 187H60V651Q69 654 87.0 657.0Q105 660 126 660Q169 660 188.5 645.0Q208 630 208 590Z" fill="#FFFFFF"/></g>
+    <g transform="translate(2473,0) scale(1,-1)"><path d="M255 95Q278 95 300.5 99.5Q323 104 333 110V206L249 198Q215 196 195.0 184.0Q175 172 175 148Q175 124 194.0 109.5Q213 95 255 95ZM249 495Q353 495 415.0 451.5Q477 408 477 317V90Q477 65 464.0 49.5Q451 34 431 23Q401 5 356.5 -5.5Q312 -16 255 -16Q153 -16 92.5 24.0Q32 64 32 143Q32 211 74.0 247.5Q116 284 199 292L332 306V318Q332 352 305.5 367.0Q279 382 230 382Q192 382 155.5 373.0Q119 364 90 352Q78 360 69.5 376.5Q61 393 61 411Q61 453 107 472Q136 484 174.5 489.5Q213 495 249 495Z" fill="#FFFFFF"/></g>
+    <g transform="translate(3006,0) scale(1,-1)"><path d="M58 187V259H206V188Q206 142 229.5 122.0Q253 102 296 102Q323 102 341.0 107.0Q359 112 368 117V259H517V99Q517 75 507.5 58.0Q498 41 477 28Q445 8 398.5 -3.5Q352 -15 295 -15Q224 -15 170.5 6.0Q117 27 87.5 71.5Q58 116 58 187ZM517 214H368V478Q378 481 396.0 484.0Q414 487 435 487Q478 487 497.5 472.5Q517 458 517 417ZM206 214H58V478Q67 481 85.0 484.0Q103 487 124 487Q167 487 186.5 472.5Q206 458 206 417Z" fill="#FFFFFF"/></g>
+    <g transform="translate(3580,0) scale(1,-1)"><path d="M447 140Q447 67 392.0 25.5Q337 -16 232 -16Q150 -16 97.0 8.0Q44 32 44 79Q44 100 53.0 115.5Q62 131 76 140Q104 124 141.5 110.5Q179 97 227 97Q300 97 300 139Q300 157 287.0 167.5Q274 178 244 183L202 193Q122 210 82.5 245.5Q43 281 43 343Q43 413 99.5 454.5Q156 496 252 496Q300 496 339.5 486.5Q379 477 402.0 457.5Q425 438 425 409Q425 389 417.0 374.0Q409 359 396 349Q385 356 362.5 364.0Q340 372 313.5 377.0Q287 382 264 382Q228 382 208.0 372.5Q188 363 188 343Q188 330 199.5 320.5Q211 311 240 305L280 295Q369 275 408.0 237.5Q447 200 447 140Z" fill="#FFFFFF"/></g>
+</svg></div><div class="cap"><b>White version on light colour</b><span>white needs Grey 500 or darker behind it</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 COLOUR -->
+  <section id="colour">
+    <div class="sec-head">
+      <span class="label">05 · Colour</span>
+      <h2>Monochrome base, one green that means Linkhaus.</h2>
+      <p class="lede">Crisp near-black on true white. Haus Green is a moss green with real saturation: earthy and confident, not a synthetic tech green. Select a code to copy it.</p>
+    </div>
+
+    <div class="block">
+      <h3>Neutrals</h3>
+      <div class="swatches"><div class="sw"><div class="chip" style="background:#16171A;color:#FFFFFF;">#16171A</div><div class="info"><b>Ink 900</b><div class="codes">HEX #16171A <button class="copy" data-v="#16171A" aria-label="Copy #16171A">Copy</button><br>RGB 22, 23, 26<br>CMYK 15 / 12 / 0 / 90</div><p>Primary text and primary dark surface.</p></div></div><div class="sw"><div class="chip" style="background:#212226;color:#FFFFFF;">#212226</div><div class="info"><b>Ink 700</b><div class="codes">HEX #212226 <button class="copy" data-v="#212226" aria-label="Copy #212226">Copy</button><br>RGB 33, 34, 38<br>CMYK 13 / 11 / 0 / 85</div><p>Secondary dark surface.</p></div></div><div class="sw"><div class="chip" style="background:#5B5D63;color:#FFFFFF;">#5B5D63</div><div class="info"><b>Grey 500</b><div class="codes">HEX #5B5D63 <button class="copy" data-v="#5B5D63" aria-label="Copy #5B5D63">Copy</button><br>RGB 91, 93, 99<br>CMYK 8 / 6 / 0 / 61</div><p>Secondary text, muted icons.</p></div></div><div class="sw"><div class="chip" style="background:#9A9CA3;color:#16171A;">#9A9CA3</div><div class="info"><b>Grey 300</b><div class="codes">HEX #9A9CA3 <button class="copy" data-v="#9A9CA3" aria-label="Copy #9A9CA3">Copy</button><br>RGB 154, 156, 163<br>CMYK 6 / 4 / 0 / 36</div><p>Borders and disabled states. Never for text on white.</p></div></div><div class="sw"><div class="chip" style="background:#E2E3E0;color:#16171A;">#E2E3E0</div><div class="info"><b>Grey 100</b><div class="codes">HEX #E2E3E0 <button class="copy" data-v="#E2E3E0" aria-label="Copy #E2E3E0">Copy</button><br>RGB 226, 227, 224<br>CMYK 0 / 0 / 1 / 11</div><p>Dividers, subtle fills.</p></div></div><div class="sw"><div class="chip" style="background:#FFFFFF;color:#16171A;box-shadow:inset 0 -1px 0 #E2E3E0;">#FFFFFF</div><div class="info"><b>Paper</b><div class="codes">HEX #FFFFFF <button class="copy" data-v="#FFFFFF" aria-label="Copy #FFFFFF">Copy</button><br>RGB 255, 255, 255<br>CMYK 0 / 0 / 0 / 0</div><p>Primary light surface; text on dark.</p></div></div></div>
+    </div>
+    <div class="block">
+      <h3>Haus Green</h3>
+      <div class="swatches"><div class="sw"><div class="chip" style="background:#2D4422;color:#FFFFFF;">#2D4422</div><div class="info"><b>Haus Green 800</b><div class="codes">HEX #2D4422 <button class="copy" data-v="#2D4422" aria-label="Copy #2D4422">Copy</button><br>RGB 45, 68, 34<br>CMYK 34 / 0 / 50 / 73</div><p>Pressed and active states.</p></div></div><div class="sw"><div class="chip" style="background:#446732;color:#FFFFFF;">#446732</div><div class="info"><b>Haus Green</b><div class="codes">HEX #446732 <button class="copy" data-v="#446732" aria-label="Copy #446732">Copy</button><br>RGB 68, 103, 50<br>CMYK 34 / 0 / 51 / 60</div><p>The accent: buttons, links and the window in the mark on light backgrounds.</p></div></div><div class="sw"><div class="chip" style="background:#93BF7D;color:#16171A;">#93BF7D</div><div class="info"><b>Haus Green 400</b><div class="codes">HEX #93BF7D <button class="copy" data-v="#93BF7D" aria-label="Copy #93BF7D">Copy</button><br>RGB 147, 191, 125<br>CMYK 23 / 0 / 35 / 25</div><p>Accent on dark surfaces; the window in the mark on dark backgrounds.</p></div></div><div class="sw"><div class="chip" style="background:#E3EDDE;color:#16171A;">#E3EDDE</div><div class="info"><b>Haus Green 100</b><div class="codes">HEX #E3EDDE <button class="copy" data-v="#E3EDDE" aria-label="Copy #E3EDDE">Copy</button><br>RGB 227, 237, 222<br>CMYK 4 / 0 / 6 / 7</div><p>Tints: badges and subtle backgrounds.</p></div></div></div>
+    </div>
+
+    <div class="block">
+      <h3>Proportion</h3>
+      <div class="ratio" role="img" aria-label="Roughly 60 percent white, 28 percent ink and greys, 8 percent Haus Green, 4 percent green tints">
+        <div style="flex:60;background:#FFFFFF;color:#5B5D63">PAPER 60</div>
+        <div style="flex:28;background:#16171A;color:#fff">INK + GREYS 28</div>
+        <div style="flex:8;background:#446732;color:#fff">8</div>
+        <div style="flex:4;background:#E3EDDE;color:#2D4422">4</div>
+      </div>
+      <p class="muted" style="font-size:.92rem;max-width:70ch">A rough guide for a light layout. Dark layouts swap paper and ink. Haus Green is a signal: buttons, links, one highlighted word, the window. If a layout looks green, there's too much of it.</p>
+    </div>
+
+    <div class="block">
+      <h3>On dark backgrounds</h3>
+      <div class="callout"><strong>Ink flips to white, and Haus Green steps up to Haus Green 400.</strong> Haus Green (#446732) on ink measures 2.8:1 and fails for text. Use #93BF7D for green text, icons and the window whenever the background is Ink 900 or Ink 700.</div>
+    </div>
+
+    <div class="block">
+      <h3>Accessible pairs</h3>
+      <p class="muted" style="font-size:.92rem">WCAG 2.2 contrast. AA needs 4.5:1 for body text and 3:1 for large text (24 px, or 19 px bold).</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Text</th><th>Background</th><th>Ratio</th><th>Use for</th></tr></thead>
+        <tbody>
+          <tr><td>Ink 900</td><td>Paper</td><td class="num">17.9:1</td><td class="pass">All text</td></tr>
+          <tr><td>Paper</td><td>Ink 900</td><td class="num">17.9:1</td><td class="pass">All text</td></tr>
+          <tr><td>Ink 900</td><td>Haus Green 100</td><td class="num">14.9:1</td><td class="pass">All text</td></tr>
+          <tr><td>Haus Green 800</td><td>Haus Green 100</td><td class="num">8.9:1</td><td class="pass">Badges, callouts</td></tr>
+          <tr><td>Haus Green 400</td><td>Ink 900</td><td class="num">8.5:1</td><td class="pass">Green text on dark</td></tr>
+          <tr><td>Grey 500</td><td>Paper</td><td class="num">6.6:1</td><td class="pass">Secondary text</td></tr>
+          <tr><td>Haus Green</td><td>Paper</td><td class="num">6.5:1</td><td class="pass">Links, buttons</td></tr>
+          <tr><td>Paper</td><td>Haus Green</td><td class="num">6.5:1</td><td class="pass">Button labels</td></tr>
+          <tr><td>Grey 300</td><td>Ink 900</td><td class="num">6.5:1</td><td class="pass">Secondary text on dark</td></tr>
+          <tr><td>Haus Green</td><td>Ink 900</td><td class="num">2.8:1</td><td class="fail">Never for text</td></tr>
+          <tr><td>Grey 300</td><td>Paper</td><td class="num">2.7:1</td><td class="fail">Borders only, never text</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- 06 TYPE -->
+  <section id="type">
+    <div class="sec-head">
+      <span class="label">06 · Typography</span>
+      <h2>Three faces, one job each.</h2>
+      <p class="lede">All three are open source (SIL Open Font Licence). Load them from Google Fonts or use the files in the brand portal. No licence cost, no lock-in.</p>
+    </div>
+    <div class="grid g3">
+      <div class="face"><span class="label">Display</span><div class="spec" style="font-family:var(--display);font-weight:700">Aa Rr</div><h4>Baloo 2</h4><p class="muted" style="font-size:.9rem">600, 700. Headlines, big numbers, the tagline. The wordmark is drawn from it.</p></div>
+      <div class="face"><span class="label">Body and UI</span><div class="spec" style="font-family:var(--body);font-weight:500">Aa Rr</div><h4>Inter</h4><p class="muted" style="font-size:.9rem">400, 500, 600. Paragraphs, buttons, forms, documents.</p></div>
+      <div class="face"><span class="label">Mono</span><div class="spec" style="font-family:var(--mono);font-weight:500">Aa Rr</div><h4>JetBrains Mono</h4><p class="muted" style="font-size:.9rem">400, 500. Labels, data, prices in tables, ABN and fine print.</p></div>
+    </div>
+
+    <div class="block">
+      <h3>Type scale (web)</h3>
+      <div>
+        <div class="scale-row"><span class="label">Display XL<br>700 · 64/67</span><span class="s" style="font:700 clamp(2.2rem,5vw,4rem)/1.05 var(--display)">From decision to done.</span></div>
+        <div class="scale-row"><span class="label">H1<br>700 · 36/41</span><span class="s" style="font:700 2.25rem/1.15 var(--display)">One accountable operator.</span></div>
+        <div class="scale-row"><span class="label">H2<br>600 · 28/35</span><span class="s" style="font:600 1.75rem/1.25 var(--display)">Admin, handled.</span></div>
+        <div class="scale-row"><span class="label">H3<br>Inter 600 · 22/29</span><span class="s" style="font:600 1.375rem/1.3 var(--body)">Built into the tools you already use</span></div>
+        <div class="scale-row"><span class="label">Body L<br>Inter 400 · 18/27</span><span class="s" style="font:400 1.125rem/1.5 var(--body)">We set up your quote follow-ups so they go out on time, every time.</span></div>
+        <div class="scale-row"><span class="label">Body<br>Inter 400 · 16/24</span><span class="s" style="font:400 1rem/1.5 var(--body)">Start with the 15-minute call. It's free, and you'll know by the end of it.</span></div>
+        <div class="scale-row"><span class="label">Caption<br>Mono 500 · 12, caps</span><span class="s" style="font:500 .75rem/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase">NSW · Australia-wide · ABN 39 614 990 330</span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Rules</h3>
+      <ul style="max-width:72ch">
+        <li>Headlines in Baloo 2, sentence case. Never set Baloo 2 in all caps or below 18 px.</li>
+        <li>Body text 16 px minimum on screen, 9.5 pt minimum in print. Keep lines to about 65 characters.</li>
+        <li>Uppercase only for short mono labels, with 0.06 to 0.08 em letter-spacing.</li>
+        <li>Use tabular numbers (Inter or JetBrains Mono) wherever figures line up in columns.</li>
+        <li>No other typefaces. If a platform can't load the fonts (some email clients), fall back to Arial for headings and body.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 07 LAYOUT -->
+  <section id="layout">
+    <div class="sec-head">
+      <span class="label">07 · Layout and spacing</span>
+      <h2>A 4 px grid, generous space, soft corners.</h2>
+    </div>
+    <div class="grid g2">
+      <div class="block">
+        <h3>Spacing scale</h3>
+        <div style="display:grid;gap:8px"><div class="space-row"><span class="mono">space-1</span><span class="mono">4 px</span><div class="bar" style="width:8px;max-width:100%"></div></div><div class="space-row"><span class="mono">space-2</span><span class="mono">8 px</span><div class="bar" style="width:16px;max-width:100%"></div></div><div class="space-row"><span class="mono">space-3</span><span class="mono">12 px</span><div class="bar" style="width:24px;max-width:100%"></div></div><div class="space-row"><span class="mono">space-4</span><span class="mono">16 px</span><div class="bar" style="width:32px;max-width:100%"></div></div><div class="space-row"><span class="mono">space-5</span><span class="mono">24 px</span><div class="bar" style="width:48px;max-width:100%"></div></div><div class="space-row"><span class="mono">space-6</span><span class="mono">32 px</span><div class="bar" style="width:64px;max-width:100%"></div></div><div class="space-row"><span class="mono">space-7</span><span class="mono">48 px</span><div class="bar" style="width:96px;max-width:100%"></div></div><div class="space-row"><span class="mono">space-8</span><span class="mono">64 px</span><div class="bar" style="width:128px;max-width:100%"></div></div><div class="space-row"><span class="mono">space-9</span><span class="mono">96 px</span><div class="bar" style="width:192px;max-width:100%"></div></div></div>
+      </div>
+      <div class="block">
+        <h3>Shape and depth</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr><td>Radius small</td><td class="num">8 px</td><td>Inputs, chips</td></tr>
+            <tr><td>Radius medium</td><td class="num">12 px</td><td>Cards, buttons</td></tr>
+            <tr><td>Radius large</td><td class="num">16 px</td><td>Panels, modals</td></tr>
+            <tr><td>Radius app tile</td><td class="num">22 %</td><td>App icon corner</td></tr>
+            <tr><td>Pill</td><td class="num">100 px</td><td>Tags and toasts only</td></tr>
+            <tr><td>Container</td><td class="num">1140 px</td><td>Max content width</td></tr>
+            <tr><td>Gutter</td><td class="num">20–64 px</td><td>Scales with the screen</td></tr>
+          </tbody>
+        </table></div>
+        <p class="muted" style="font-size:.9rem">Shadows are low and warm, never pure black. Most surfaces need a 1 px Grey 100 border instead of a shadow.</p>
+      </div>
+    </div>
+    <ul style="max-width:72ch">
+      <li>Left-align text. Centre only short, single statements: a hero line, a closing call to action.</li>
+      <li>One idea per section, one primary button per screen.</li>
+      <li>Let space do the separating before you reach for lines, boxes or colour.</li>
+      <li>A fine 48 px grid on ink is the brand's background texture for dark covers and slides. Keep it at about 4 % opacity.</li>
+    </ul>
+  </section>
+
+  <!-- 08 ICONS -->
+  <section id="icons">
+    <div class="sec-head">
+      <span class="label">08 · Icons</span>
+      <h2>Drawn in the mark's own line.</h2>
+      <p class="lede">Each icon uses the logo's construction: square ends, sharp corners, one line weight, and one lit square echoing the window.</p>
+    </div>
+    <div class="icons"><div class="ic"><svg role="img" aria-label="automation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><path d="M20 6 A8 8 0 1 0 21 13"/><path d="M20 3 L20 7 L16 7"/><rect x="10.5" y="10.5" width="3" height="3" style="fill:var(--accent)" stroke="none"/></svg>
+<span>automation</span></div><div class="ic"><svg role="img" aria-label="data" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><rect x="3.5" y="13" width="4" height="7"/><rect x="10" y="8.5" width="4" height="11.5"/><rect x="16.5" y="4" width="4" height="16" style="fill:var(--accent)" stroke="none"/><rect x="16.5" y="4" width="4" height="16"/></svg>
+<span>data</span></div><div class="ic"><svg role="img" aria-label="systems" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><rect x="3.5" y="4" width="17" height="4.5" style="fill:var(--accent)" stroke="none"/><rect x="3.5" y="4" width="17" height="4.5"/><rect x="3.5" y="10" width="17" height="4.5"/><rect x="3.5" y="16" width="17" height="4.5"/></svg>
+<span>systems</span></div><div class="ic"><svg role="img" aria-label="engineering" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><path d="M8 5 L3 12 L8 19"/><path d="M16 5 L21 12 L16 19"/><rect x="10.5" y="10.5" width="3" height="3" style="fill:var(--accent)" stroke="none"/></svg>
+<span>engineering</span></div><div class="ic"><svg role="img" aria-label="strategy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><rect x="3.5" y="3.5" width="17" height="17"/><rect x="8" y="8" width="8" height="8"/><rect x="10.5" y="10.5" width="3" height="3" style="fill:var(--accent)" stroke="none"/></svg>
+<span>strategy</span></div><div class="ic"><svg role="img" aria-label="advisory" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><path d="M4 5 H20 V15 H11 L7 19 V15 H4 Z"/><rect x="8.5" y="8" width="3.5" height="3.5" style="fill:var(--accent)" stroke="none"/></svg>
+<span>advisory</span></div></div>
+    <div class="grid g2">
+      <div class="card"><span class="label">Construction</span><p>24 × 24 grid · 2-unit stroke · butt caps · miter joins · one 3 × 3 Haus Green square per icon · no fills except that square.</p></div>
+      <div class="card"><span class="label">Use</span><p>Services, feature lists, the business card and social posts. On dark backgrounds the lines go white and the square goes Haus Green 400. Don't mix in rounded or filled icon sets.</p></div>
+    </div>
+  </section>
+
+  <!-- 09 IMAGERY -->
+  <section id="imagery">
+    <div class="sec-head">
+      <span class="label">09 · Imagery</span>
+      <h2>Real work, real places, real screens.</h2>
+    </div>
+    <div class="grid g2">
+      <div class="card"><span class="label">Use</span><ul style="color:var(--muted);font-size:.95rem"><li>Clients' real workplaces: a site ute, a cafe pass, an office desk (with written permission).</li><li>Screenshots of the systems we build, with customer data blurred or replaced.</li><li>Natural light, honest colour, people mid-task rather than posed.</li><li>Typographic posts (ink, white, one green word) when there's no good photo.</li></ul></div>
+      <div class="card"><span class="label">Avoid</span><ul style="color:var(--muted);font-size:.95rem"><li>Robots, glowing brains, blue circuit boards, "digital" particle swirls.</li><li>Generic stock handshakes and laptop-on-a-beach shots.</li><li>AI-generated people presented as staff or clients.</li><li>Green colour washes over photos. Green belongs to type and the mark.</li></ul></div>
+    </div>
+    <div class="callout"><strong>Licensing.</strong> Use only photos we took, photos a client has given written permission for, or properly licensed stock. Record where every image came from.</div>
+  </section>
+
+  <!-- 10 MOTION -->
+  <section id="motion">
+    <div class="sec-head">
+      <span class="label">10 · Motion</span>
+      <h2>Quiet and functional, like the voice.</h2>
+    </div>
+    <div class="grid g3">
+      <div class="card"><span class="label">Fast · 120 ms</span><p>Hover, focus, small state changes.</p></div>
+      <div class="card"><span class="label">Base · 200 ms</span><p>Toggles, toasts, reveals.</p></div>
+      <div class="card"><span class="label">Slow · 400 ms</span><p>Page-level transitions, the logo sting.</p></div>
+    </div>
+    <p class="muted" style="max-width:72ch">Easing: <code>cubic-bezier(0.22, 0.61, 0.36, 1)</code>. Things move to show cause and effect, never to perform. In video, the mark can draw itself along its single line, then the window lights. Always respect reduced-motion settings.</p>
+  </section>
+
+  <!-- 11 APPLICATIONS -->
+  <section id="applications">
+    <div class="sec-head">
+      <span class="label">11 · Applications</span>
+      <h2>Where the brand shows up, and where to get the files.</h2>
+      <p class="lede">Ready-made files live in the brand portal at brand.linkhaus.com.au. Start from those rather than rebuilding.</p>
+    </div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Item</th><th>Spec</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Business card</td><td class="num">90 × 55 mm, 3 mm bleed</td><td>Ink front with services; dark or light back. 350 gsm or heavier, matt laminate.</td></tr>
+        <tr><td>Letterhead</td><td class="num">A4</td><td>Contact details and ABN in the footer. Body in Inter 10 pt.</td></tr>
+        <tr><td>Compliments slip</td><td class="num">DL, 210 × 99 mm</td><td>For hand-written notes with printed material.</td></tr>
+        <tr><td>Email signature</td><td>HTML, Arial fallback</td><td>Name, role, phone, email, website, ABN. No quotes, no banners.</td></tr>
+        <tr><td>Profile pictures</td><td class="num">1080 × 1080</td><td>Green tile for most platforms; ink or white where the platform background clashes.</td></tr>
+        <tr><td>Covers</td><td>Facebook, LinkedIn, X, YouTube, Google</td><td>Content kept inside each platform's safe area.</td></tr>
+        <tr><td>Service posts</td><td class="num">1080 × 1350</td><td>One per service, with its icon and two-to-three-line headline.</td></tr>
+        <tr><td>Story</td><td class="num">1080 × 1920</td><td>250 px clear at top and bottom for app controls.</td></tr>
+        <tr><td>Share image</td><td class="num">1200 × 630</td><td>Used when the site is linked on social or in chat.</td></tr>
+        <tr><td>Video-call background</td><td class="num">1920 × 1080</td><td>Logo top right so you don't cover it.</td></tr>
+        <tr><td>Favicon and app icons</td><td class="num">16 to 512 px</td><td>Icon on the ink tile, so it reads in light and dark browser tabs.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- 12 CHECKLIST -->
+  <section id="checklist">
+    <div class="sec-head">
+      <span class="label">12 · Pre-publish checklist</span>
+      <h2>Before anything goes out.</h2>
+    </div>
+    <ul class="checklist">
+      <li>The first sentence or headline carries the point.</li>
+      <li>Every claim is a number, a named task, or something the reader can see. Nothing invented.</li>
+      <li>None of the "avoid" words. No em dashes. Australian spelling.</li>
+      <li>The name is "Linkhaus". Phone 0480 043 497, email hello@linkhaus.com.au and ABN 39 614 990 330 are exactly right.</li>
+      <li>No certification, licensing or "coming soon" claims we can't back.</li>
+      <li>The right logo version for the background, with clear space and above minimum size.</li>
+      <li>Haus Green used as a signal only; green text on dark uses Haus Green 400.</li>
+      <li>Text passes contrast; body text at least 16 px on screen.</li>
+      <li>Images are ours, permitted or licensed, and recorded.</li>
+      <li>One clear call to action that says exactly what happens.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>Linkhaus · Sole trader, NSW, Australia · ABN 39 614 990 330</span>
+    <span>hello@linkhaus.com.au · 0480 043 497 · linkhaus.com.au</span>
+    <span>Brand guide v1.0 · 13 Oct 2026</span>
+  </footer>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var toast = document.getElementById('toast'), t;
+  function show(msg) { toast.textContent = msg; toast.classList.add('show'); clearTimeout(t); t = setTimeout(function () { toast.classList.remove('show'); }, 1600); }
+  document.querySelectorAll('.copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var v = b.getAttribute('data-v');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(v).then(function () { show('Copied ' + v); }, function () { show(v); });
+      } else { show(v); }
+    });
+  });
+})();
+</script>
+</body></html>

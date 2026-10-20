@@ -1,0 +1,68 @@
+{
+  "brand": "Linkhaus",
+  "colors": {
+    "ink": {
+      "name": "Ink 900",
+      "hex": "#16171A",
+      "rgb": "22, 23, 26",
+      "cmyk": "15 / 12 / 0 / 90",
+      "usage": "Primary text and primary dark surface."
+    },
+    "ink700": {
+      "name": "Ink 700",
+      "hex": "#212226",
+      "rgb": "33, 34, 38",
+      "cmyk": "13 / 11 / 0 / 85",
+      "usage": "Secondary dark surface."
+    },
+    "grey500": {
+      "name": "Grey 500",
+      "hex": "#5B5D63",
+      "rgb": "91, 93, 99",
+      "cmyk": "8 / 6 / 0 / 61",
+      "usage": "Secondary text, muted icons."
+    },
+    "grey100": {
+      "name": "Grey 100",
+      "hex": "#E2E3E0",
+      "rgb": "226, 227, 224",
+      "cmyk": "0 / 0 / 1 / 11",
+      "usage": "Dividers, subtle fills."
+    },
+    "paper": {
+      "name": "Paper",
+      "hex": "#FFFFFF",
+      "rgb": "255, 255, 255",
+      "cmyk": "0 / 0 / 0 / 0",
+      "usage": "Primary light surface; text on dark."
+    },
+    "green800": {
+      "name": "Haus Green 800",
+      "hex": "#2D4422",
+      "rgb": "45, 68, 34",
+      "cmyk": "34 / 0 / 50 / 73",
+      "usage": "Pressed and active states."
+    },
+    "green600": {
+      "name": "Haus Green",
+      "hex": "#446732",
+      "rgb": "68, 103, 50",
+      "cmyk": "34 / 0 / 51 / 60",
+      "usage": "The accent: buttons, links and the window in the mark on light backgrounds."
+    },
+    "green400": {
+      "name": "Haus Green 400",
+      "hex": "#93BF7D",
+      "rgb": "147, 191, 125",
+      "cmyk": "23 / 0 / 35 / 25",
+      "usage": "Accent on dark surfaces; the window in the mark on dark backgrounds."
+    },
+    "green100": {
+      "name": "Haus Green 100",
+      "hex": "#E3EDDE",
+      "rgb": "227, 237, 222",
+      "cmyk": "4 / 0 / 6 / 7",
+      "usage": "Tints: badges and subtle backgrounds."
+    }
+  }
+}
